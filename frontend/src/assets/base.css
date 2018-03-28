@@ -24,9 +24,12 @@ h2 {
 img {
   border: none;
 }
-html,body{	
+
+html,
+body {
   background-color: #163E79;
 }
+
 #app {
   font: normal 12px "微软雅黑", "Arial", "Verdana", "sans-serif";
   -webkit-font-smoothing: antialiased;
@@ -35,16 +38,17 @@ html,body{
 }
 
 
+
 /*基本盒子格式，定义为宽度包含边框内边距*/
 
 .box {
   position: relative;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;  
+  -webkit-box-sizing: border-box;
 }
 
-.box header{
+.box>header {
   position: relative;
   text-align: left;
   height: 30px;
@@ -52,7 +56,7 @@ html,body{
   padding-left: 5px;
 }
 
-.box section{
+.box>section {
   position: absolute;
   top: 32px;
   bottom: 0;

@@ -6,6 +6,7 @@
       </section>
       <section class="box">
         <header>3D漫游展示</header>
+        <ThreeWander></ThreeWander>
       </section>
       <section class="box">
         <header>管廊平面展示</header>
@@ -48,7 +49,9 @@
 </template>
 <script>
 import { BASE_INFOS } from '@/json/desktop'
+import ThreeWander from '../components/ThreeWander'
 export default {
+  components: { ThreeWander },
   data() {
     return {
       baseInfos: []

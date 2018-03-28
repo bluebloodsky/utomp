@@ -14,7 +14,11 @@
       </nav>
       <div class="right-info">
         <a> <img src="../assets/user.png"></a>
-        <span>{{t}}</span>
+        <span> 
+          <strong>{{t}}</strong> 
+          <br/>
+          {{d}}
+        </span>
       </div>
     </header>
     <router-view :items="sub_menus"></router-view>
@@ -26,15 +30,23 @@ export default {
   data() {
     return {
       nav_menus: [],
-      sub_menus: []
+      sub_menus: [],
+      dt: new Date(),
     }
   },
   created() {
     this.nav_menus = NAV_MENUS
+    window.setInterval(() => {
+      this.dt = new Date()
+    }, 1000)
+
   },
-  computed:{
-    t(){
-      return (new Date()).format("hh:mm:ss")
+  computed: {
+    t() {
+      return this.dt.format("hh:mm:ss")
+    },
+    d(){
+      return this.dt.format("yyyy-MM-dd")
     }
   },
   methods: {
@@ -76,14 +88,27 @@ nav a i.iconfont {
   justify-content: space-around;
   align-items: center;
 }
+
 .right-info a {
   display: inline-block;
-  overflow: hidden;
+  height: 64px;
+  width: 64px;
   border-radius: 32px;
+  overflow: hidden;
   background-color: #fff;
-}
-.right-info img {
-  height: 45px;
+  margin-right: 20px;
 }
 
+.right-info img {
+  height: 64px;
+}
+
+.right-info span{  
+  color: #8B9DB7;
+  font-size: 16px;
+}
+.right-info strong{
+  font-size: 22px;
+  font-weight: normal;
+}
 </style>
