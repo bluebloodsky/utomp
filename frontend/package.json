@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "tube corridor monitoring",
+  "description": "the operation and maintenance management platform of Utility Tunnel",
   "author": "bluebloodsky <zhangliang1101@126.com>",
   "private": true,
   "scripts": {
@@ -15,9 +15,7 @@
     "echarts": "^4.0.2",
     "element-ui": "^2.0.11",
     "js-md5": "^0.7.3",
-    "stats": "^1.0.0",
     "three": "^0.91.0",
-    "three-js": "^79.0.0",
     "tween": "^0.9.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",

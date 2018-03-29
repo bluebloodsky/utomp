@@ -3,6 +3,7 @@
     <div class="left-part">
       <section class="box">
         <header>GIS全览</header>
+        <Gis></Gis>
       </section>
       <section class="box">
         <header>3D漫游展示</header>
@@ -13,45 +14,33 @@
       </section>
       <section class="box">
         <header>入廊管线</header>
+        <TunnelWire :baseInfos="baseInfos"></TunnelWire>
       </section>
     </div>
     <div class="right-part">
       <section class="box">
         <header>基本信息</header>
-        <section>
-          <div class="baseInfo">
-            <ul v-for="(baseInfo,n) in baseInfos" :style="{ left : n * 33 + '%'}">
-              <li>
-                {{baseInfo.name_cn}}
-              </li>
-              <li>（{{baseInfo.manager}}）</li>
-              <li>总长 <span><strong>{{baseInfo.tot_len}}</strong>km</span></li>
-              <li>已运行 <span><strong>{{baseInfo.used_day}}</strong>天</span></li>
-            </ul>
-          </div>
-          <nav>
-            <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
-          </nav>
-        </section>
+        <BaseInfo :baseInfos="baseInfos"></BaseInfo>
       </section>
       <section class="box">
         <header>告警事件统计</header>
       </section>
       <section class="box">
         <header>设备故障统计</header>
+        <DeviceFault></DeviceFault>
       </section>
     </div>
   </div>
 </template>
 <script>
 import { BASE_INFOS } from '@/json/desktop'
-import ThreeWander from '../components/ThreeWander'
+import ThreeWander from '../components/desktop/ThreeWander'
+import BaseInfo from '../components/desktop/BaseInfo'
+import Gis from '../components/desktop/Gis'
+import DeviceFault from '../components/desktop/DeviceFault'
+import TunnelWire from '../components/desktop/TunnelWire'
 export default {
-  components: { ThreeWander },
+  components: { ThreeWander, BaseInfo, Gis, DeviceFault ,TunnelWire },
   data() {
     return {
       baseInfos: []
@@ -122,38 +111,5 @@ export default {
 .right-part .box:nth-child(3) {
   height: calc(30% - 5px);
 }
-
-.baseInfo {
-  position: relative;
-  height: 80%;
-  overflow: hidden;
-}
-
-.baseInfo ul {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-}
-
-.baseInfo li {
-  display: block;
-  padding: 5px;
-  font-size: 14px;
-  color: #77747D;
-}
-
-.baseInfo li:first-child {
-  color: #fff;
-}
-
-.baseInfo span {
-  color: #90DFE4;
-}
-
-.baseInfo strong {
-  font-size: 18px;
-}
-
-nav ul {}
 
 </style>
