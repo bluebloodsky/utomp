@@ -4,35 +4,38 @@
     <input v-model.number="fov">(0~180)
     <input type="checkbox" v-model="moveFlg">平移
     <div ref="canvas"></div>
+    <section ref="stats" style="z-index:99999"></section>
   </section>
 </template>
 <script>
-// import * as THREE from 'three'
+import { CreateTunnel } from '@/models/threeObject'
 export default {
   data() {
     return {
-      fov: 60,
+      fov: 45,
       step: 1,
       moveFlg: false,
       renderer: null,
-      controls: null,
       camera: null,
       scene: null,
-      cube: null,
+      stats: null,
+      material: null,
+      rocks: null,
+      angle: 0,
       width: 0,
       height: 0,
-
+      gui: null
     }
   },
   mounted() {
     this.initThree()
-    this.initCamera()
-    // this.initControls()
     this.initScene()
+    this.initStats()
+    this.initCamera()
     this.initLight()
-    this.initObject()
-    this.animation()
-
+    this.createTunnel()
+    this.createObject()
+    this.render()
     window.addEventListener("resize", () => {
       let canvas = this.$refs['canvas']
       this.width = canvas.clientWidth
@@ -48,7 +51,9 @@ export default {
       this.width = canvas.clientWidth
       this.height = canvas.clientHeight
       this.renderer = new THREE.WebGLRenderer({
-        antialias: true
+        alpha: true,
+        antialias: true,
+        // preserveDrawingBuffer: true, //是否保存绘图缓冲  
       })
       this.renderer.shadowMap.enabled = true
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
@@ -57,69 +62,129 @@ export default {
       this.renderer.domElement.addEventListener("mousewheel", this.mousewheel, false)
 
       canvas.appendChild(this.renderer.domElement)
-      this.renderer.setClearColor(0xFFFFFF, 1.0)
+      // this.renderer.setClearColor(0xFFFFFF, 1.0)
+      this.gui = new dat.GUI()
     },
-    initCamera() {
-      this.camera = new THREE.PerspectiveCamera(this.fov, this.width / this.height, 1, 10000)
-      this.camera.position.z = 200
-    },
-    initControls() {
-      this.controls = new THREE.TrackballControls(this.camera)
+    initStats() {
+      this.stats = new Stats()
+      this.stats.setMode(0)
+      this.stats.domElement.style = { position: 'absolute', left: 0, top: 0 }
+      this.$refs['stats'].appendChild(this.stats.domElement)
     },
     initScene() {
       this.scene = new THREE.Scene()
+      this.scene.fog = new THREE.Fog(0xFFFFFF, 0.015, 100)
+    },
+    initCamera() {
+      this.camera = new THREE.PerspectiveCamera(this.fov, this.width / this.height, 1, 100)
+      this.camera.position.set(2, 2, 410)
+
+
+      // let c = this.camera
+      // let helper = new THREE.CameraHelper(c);
+      // this.scene.add(helper);
     },
     initLight() {
-      // light = new THREE.DirectionalLight(0xFF0000, 1.0, 0)
-      // light.position.set(10, 10, 10)
-      // this.scene.add(light)
+      let directLight = new THREE.DirectionalLight(0xff0000, 1.0, 0)
+      directLight.position.set(0, 0, 1000)
+      this.scene.add(directLight)
 
-      let ambientLight = new THREE.AmbientLight(0xff0000)
+      var ambiColor = "#0c0c0c"
+      let ambientLight = new THREE.AmbientLight(ambiColor)
       this.scene.add(ambientLight)
 
-      // let light = new THREE.PointLight(0xff0000)
-      // light.position.set(0, 0, 100)
-      // this.scene.add(light)
+      let pointlight = new THREE.PointLight(0xff0000)
+      pointlight.position.set(0, 0, 200)
+      this.scene.add(pointlight)
 
     },
-    initObject() {
-      var groundgeometry, groundmaterial, groundmesh
-      groundgeometry = new THREE.PlaneGeometry(100, 100, 20, 20)
-      groundgeometry.vertices[0].uv = new THREE.Vector2(0, 0)
-      groundgeometry.vertices[1].uv = new THREE.Vector2(1, 0)
-      groundgeometry.vertices[2].uv = new THREE.Vector2(1, 1)
-      groundgeometry.vertices[3].uv = new THREE.Vector2(0, 1)
 
-      var loader = new THREE.TextureLoader()
-      loader.load("http://localhost:8088/lims/api/index.php/files/timg.jpg",
-        (t) => {
-          groundmaterial = new THREE.MeshBasicMaterial({ map: t })
-          groundmesh = new THREE.Mesh(groundgeometry, groundmaterial)
-          this.scene.add(groundmesh)
-        })
-      var geometry, material, mesh
-      geometry = new THREE.CylinderGeometry(30, 50, 50)
-      material = new THREE.MeshLambertMaterial({ color: 0x880000 })
-      mesh = new THREE.Mesh(geometry, material)
-      mesh.position.set(0, 0, 20)
+    createTunnel() {
+      var axes = new THREE.AxisHelper(200)
+      this.scene.add(axes)
+      var textureLoader = new THREE.TextureLoader()
+      textureLoader.load('http://localhost:8088/lims/api/index.php/files/timg.jpg', t => {
+        t.wrapS = t.wrapT = THREE.RepeatWrapping
+        t.repeat.set(0, 1)
+        var material = new THREE.MeshBasicMaterial({ map: t })
+        var tunnel = CreateTunnel(material, 5, 4, 800)
+        this.scene.add(tunnel)
+      })
+    },
+    createObject() {
+
+      var cylinderGeometry = new THREE.CylinderGeometry(0.1, 0.1, 800)
+      var meshMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+      var mesh = new THREE.Mesh(cylinderGeometry, meshMaterial)
+      mesh.rotateX(0.5 * Math.PI)
+      mesh.translateX(1)
+      mesh.translateZ(-2)
+      mesh.translateY(3)
+      // mesh.rotateY(0.5 * Math.PI)
+      this.scene.add(mesh)
+
+      mesh = new THREE.Mesh(cylinderGeometry, meshMaterial)
+      mesh.rotateX(0.5 * Math.PI)
+      mesh.translateX(1)
+      mesh.translateZ(-1.5)
+      mesh.translateY(3)
+      // mesh.rotateY(0.5 * Math.PI)
       this.scene.add(mesh)
 
     },
-    animation() {
+    loadRockTexture() {
+      var textureLoader = new THREE.TextureLoader()
+      textureLoader.load('http://localhost:8088/lims/api/index.php/files/rock.jpg', t => {
+        t.wrapS = t.wrapT = THREE.RepeatWrapping
+        t.repeat.set(2, 2)
+        this.material = new THREE.MeshLambertMaterial({ map: t })
+        this.createRocks()
+      })
+    },
+    createRocks() {
+      this.rocks = []
+      for (var i = 0; i < 100; i++) {
+
+        var size = 10 + Math.random() * 10
+        var geometry = new THREE.IcosahedronGeometry(size, 0)
+        var icosahedron = new THREE.Mesh(geometry, this.material)
+
+        for (var j = 0, l = geometry.vertices.length; j < l; j++) {
+          geometry.vertices[j].x += size * -0.25 + Math.random() * size * 0.5;
+          geometry.vertices[j].y += size * -0.25 + Math.random() * size * 0.5;
+        }
+
+        var variance = 0.01
+
+        var field = 300
+        icosahedron.position.x = -field + Math.random() * field * 2;
+        icosahedron.position.y = -field + Math.random() * field * 2;
+        icosahedron.position.z = -field + Math.random() * field * 2;
+
+        this.scene.add(icosahedron)
+        this.rocks.push(icosahedron)
+      }
+    },
+    Rock() {
+
+    },
+    render() {
+      this.stats.update()
       this.changeFov()
       if (this.moveFlg) {
         this.changeCameraPosition()
       }
       this.renderer.render(this.scene, this.camera)
-      requestAnimationFrame(this.animation)
+      requestAnimationFrame(this.render)
     },
     changeCameraPosition() {
-      if (this.camera.position.x == 200) {
+      if (this.camera.position.z > 404) {
         this.step = -1
-      } else if (this.camera.position.x == -200) {
-        this.step = 1
       }
-      this.camera.position.x += this.step
+      this.camera.position.z += this.step
+      if (this.camera.position.z < -396) {
+        this.camera.position.z = 404
+      }
     },
     changeFov() {
       this.camera.fov = this.fov
@@ -133,15 +198,22 @@ export default {
       }
     },
     keypress(e) {
-      console.log(e)
       if (e.code == "KeyA") {
-        this.camera.position.x -= 2
+        this.camera.translateX(-0.1)
       } else if (e.code == "KeyD") {
-        this.camera.position.x += 2
+        this.camera.translateX(0.1)
       } else if (e.code == "KeyW") {
-        this.camera.position.z -= 2
+        this.camera.translateZ(-0.5)
       } else if (e.code == "KeyS") {
-        this.camera.position.z += 2
+        this.camera.translateZ(0.5)
+      } else if (e.code == "KeyR") {
+        this.camera.rotateY(0.1)
+      } else if (e.code == "KeyT") {
+        this.camera.rotateY(-0.1)
+      } else if (e.code == "KeyF") {
+        this.camera.rotateX(0.1)
+      } else if (e.code == "KeyG") {
+        this.camera.rotateX(-0.1)
       }
     }
   }
@@ -151,7 +223,7 @@ export default {
 <style scoped>
 div {
   position: absolute;
-  top: 30px;
+  top: 65px;
   left: 0;
   right: 0;
   bottom: 0;
