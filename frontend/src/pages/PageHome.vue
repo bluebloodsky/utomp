@@ -4,8 +4,8 @@
       <h1>综合管廊运维管理平台</h1>
       <nav>
         <ul>
-          <li v-for="menu in nav_menus">
-            <a @click="navClick(menu)">
+          <li v-for="(menu,index) in nav_menus">
+            <a :class="{selected:index==currentMenuIndex}" @click="navClick(menu,index)">
             <i class="iconfont" :class="menu.icon"></i>
             <br/>{{menu.name_cn}}
           </a>
@@ -31,6 +31,7 @@ export default {
     return {
       nav_menus: [],
       sub_menus: [],
+      currentMenuIndex : 0,
       dt: new Date(),
     }
   },
@@ -50,9 +51,10 @@ export default {
     }
   },
   methods: {
-    navClick(menu) {
+    navClick(menu,index) {
       this.sub_menus = menu.sub_menus
       this.$router.push(menu.url)
+      this.currentMenuIndex = index
     }
   }
 }
@@ -66,19 +68,26 @@ header {
   align-items: center;
 }
 
-nav li {
+header nav li {
   display: inline-block;
   padding: 0 16px;
   text-align: center;
 }
 
-nav a {
+header nav a {
   color: #78B0C1;
 }
 
-nav a:hover {}
+header nav a:hover,
+.selected {
+  color: #44DCF4;
+}
+header nav a:hover i.iconfont,
+.selected i.iconfont{
+  color: #fff;
+}
 
-nav a i.iconfont {
+header nav a i.iconfont {
   color: #8B9DB7;
   font-size: 44px;
 }

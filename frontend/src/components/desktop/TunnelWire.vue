@@ -1,13 +1,9 @@
 <!--入廊管线-->
 <template>
   <section>
-    <div ref="wrapper" style="height:90%"></div>
+    <div ref="wrapper" class="content"></div>
     <nav>
-      <ul>
-        <li v-for="i in pageCount">
-          <a @click="cur_page = i">{{i}}</a>
-        </li>
-      </ul>
+      <a @click="cur_page = i" v-for="i in pageCount" :class="{selected:i==cur_page}"></a>
     </nav>
   </section>
 </template>
@@ -73,13 +69,36 @@ export default {
     window.addEventListener("resize", () => {
       this.chart.resize()
     })
+    window.setInterval(() => {
+      if (++this.cur_page > this.pageCount) {
+        this.cur_page = 1
+      }
+    }, 5000)
   }
 }
 
 </script>
 <style scoped>
+div.content {
+  height: calc(100% - 15px)
+}
+
 nav {
   text-align: center;
+  height: 10px;
+  line-height: 10px;
+}
+nav a {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  margin: 0 5px;
+}
+
+a.selected {
+  background-color: #FFCE44;
 }
 
 </style>

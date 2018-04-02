@@ -3,14 +3,15 @@
     <div class="left-part">
       <section class="box">
         <header>GIS全览</header>
-        <Gis></Gis>
+        <MapLine></MapLine>
       </section>
       <section class="box">
         <header>3D漫游展示</header>
         <ThreeWander></ThreeWander>
       </section>
       <section class="box">
-        <header>管廊平面展示</header>
+        <header>视频监控</header>
+        <SurVideo></SurVideo>
       </section>
       <section class="box">
         <header>入廊管线</header>
@@ -24,6 +25,7 @@
       </section>
       <section class="box">
         <header>告警事件统计</header>
+        <EventLog :baseInfos="baseInfos"></EventLog>
       </section>
       <section class="box">
         <header>设备故障统计</header>
@@ -37,10 +39,13 @@ import { BASE_INFOS } from '@/json/desktop'
 import ThreeWander from '../components/desktop/ThreeWander'
 import BaseInfo from '../components/desktop/BaseInfo'
 import Gis from '../components/desktop/Gis'
+import MapLine from '../components/desktop/MapLine'
+import SurVideo from '../components/desktop/SurVideo'
 import DeviceFault from '../components/desktop/DeviceFault'
 import TunnelWire from '../components/desktop/TunnelWire'
+import EventLog from '../components/desktop/EventLog'
 export default {
-  components: { ThreeWander, BaseInfo, Gis, DeviceFault ,TunnelWire },
+  components: { ThreeWander, BaseInfo, Gis, DeviceFault ,TunnelWire ,EventLog ,MapLine,SurVideo},
   data() {
     return {
       baseInfos: []

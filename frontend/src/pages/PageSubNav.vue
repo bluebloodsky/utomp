@@ -30,6 +30,11 @@ a {
   text-align: center;
   font-size: 20px;
   color: #fff;
+  border-radius: 10px;
+}
+
+a:hover{
+  background-color: #B91C47;
 }
 
 i.iconfont {

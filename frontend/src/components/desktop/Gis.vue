@@ -11,9 +11,9 @@ export default {
   },
   mounted() {
     this.chart = echarts.init(this.$refs['wrapper'])
-    window.onresize = () => {
+    window.addEventListener("resize", () => {
       this.chart.resize()
-    }
+    })
     this.chart.setOption({
       bmap: {
         center: [116.46, 39.92],
