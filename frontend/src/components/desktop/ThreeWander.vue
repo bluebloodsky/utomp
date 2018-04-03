@@ -103,15 +103,14 @@ export default {
       var textureLoader = new THREE.TextureLoader()
       textureLoader.load('http://localhost:8088/lims/api/index.php/files/timg.jpg', t => {
         t.wrapS = t.wrapT = THREE.RepeatWrapping
-        t.repeat.set(0, 1)
+        t.repeat.set(20, 1)
         var material = new THREE.MeshBasicMaterial({ map: t })
         var tunnel = CreateTunnel(material, 3, 4, 800)
         this.scene.add(tunnel)
-
         tunnel = CreateTunnel(material, 3, 4, 800)
         tunnel.translateX(3)
-
         this.scene.add(tunnel)
+        this.moveFlg = true
       })
     },
     createObject() {
@@ -146,7 +145,7 @@ export default {
       var textureLoader = new THREE.TextureLoader()
       textureLoader.load('http://localhost:8088/lims/api/index.php/files/rock.jpg', t => {
         t.wrapS = t.wrapT = THREE.RepeatWrapping
-        t.repeat.set(2, 2)
+        t.repeat.set(100, 1)
         this.material = new THREE.MeshLambertMaterial({ map: t })
         this.createRocks()
       })
@@ -189,7 +188,7 @@ export default {
     },
     changeCameraPosition() {
       if (this.camera.position.z > 404) {
-        this.step = -1
+        this.step = -0.1
       }
       this.camera.position.z += this.step
       if (this.camera.position.z < -396) {

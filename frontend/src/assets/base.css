@@ -65,3 +65,12 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+/*去掉百度地图logo*/
+.BMap_cpyCtrl {
+  display: none;
+}
+
+.anchorBL {
+  display: none;
+}

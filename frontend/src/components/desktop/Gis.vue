@@ -2,146 +2,36 @@
   <section ref="wrapper"></section>
 </template>
 <script>
-import echarts from 'echarts'
 export default {
+  props: ['baseInfos'],
   data() {
     return {
-      chart: null,
+
     }
   },
   mounted() {
-    this.chart = echarts.init(this.$refs['wrapper'])
-    window.addEventListener("resize", () => {
-      this.chart.resize()
-    })
-    this.chart.setOption({
-      bmap: {
-        center: [116.46, 39.92],
-        zoom: 10,
-        roam: true,
-        mapStyle: {
-          styleJson: [{
-            'featureType': 'water',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#d1d1d1'
-            }
-          }, {
-            'featureType': 'land',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#f3f3f3'
-            }
-          }, {
-            'featureType': 'railway',
-            'elementType': 'all',
-            'stylers': {
-              'visibility': 'off'
-            }
-          }, {
-            'featureType': 'highway',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#fdfdfd'
-            }
-          }, {
-            'featureType': 'highway',
-            'elementType': 'labels',
-            'stylers': {
-              'visibility': 'off'
-            }
-          }, {
-            'featureType': 'arterial',
-            'elementType': 'geometry',
-            'stylers': {
-              'color': '#fefefe'
-            }
-          }, {
-            'featureType': 'arterial',
-            'elementType': 'geometry.fill',
-            'stylers': {
-              'color': '#fefefe'
-            }
-          }, {
-            'featureType': 'poi',
-            'elementType': 'all',
-            'stylers': {
-              'visibility': 'off'
-            }
-          }, {
-            'featureType': 'green',
-            'elementType': 'all',
-            'stylers': {
-              'visibility': 'off'
-            }
-          }, {
-            'featureType': 'subway',
-            'elementType': 'all',
-            'stylers': {
-              'visibility': 'off'
-            }
-          }, {
-            'featureType': 'manmade',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#d1d1d1'
-            }
-          }, {
-            'featureType': 'local',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#d1d1d1'
-            }
-          }, {
-            'featureType': 'arterial',
-            'elementType': 'labels',
-            'stylers': {
-              'visibility': 'off'
-            }
-          }, {
-            'featureType': 'boundary',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#fefefe'
-            }
-          }, {
-            'featureType': 'building',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#d1d1d1'
-            }
-          }, {
-            'featureType': 'label',
-            'elementType': 'labels.text.fill',
-            'stylers': {
-              'color': '#999999'
-            }
-          }]
-        }
-      },
-      series: [{
-        type: 'lines',
-        coordinateSystem: 'bmap',
-        polyline: true,
-        data: [],
-        silent: true,
-        lineStyle: {
-          normal: {
-            color: '#c23531',
-            color: 'rgb(200, 35, 45)',
-            opacity: 0.2,
-            width: 1
-          }
-        },
-        progressiveThreshold: 500,
-        progressive: 200
-      }]
+    var map = new BMap.Map(this.$refs['wrapper'])
+    // 创建地图实例  
+    var point = new BMap.Point(114.49639, 30.474205)
+    // 创建点坐标  
+    map.centerAndZoom(point, 13)
+    map.setMapStyle({ style: "light" })
+    map.enableScrollWheelZoom(true)
+    this.baseInfos.map(baseInfo => {
+      var points = []
+      baseInfo.gis.map(point => {
+        points.push(new BMap.Point(point[0], point[1]))
+      })
+      var polyline = new BMap.Polyline(points, { strokeColor: "red", strokeWeight: 5, strokeOpacity: 0.8 })
+      polyline.addEventListener("click", e => {
+        alert(baseInfo.name_cn + ":" + e.point.lng + "," + e.point.lat)
+      })
+      map.addOverlay(polyline);
     })
   }
 }
 
 </script>
-<style scoped>
-
+<style>
 
 </style>

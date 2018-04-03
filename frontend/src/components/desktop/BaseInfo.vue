@@ -34,7 +34,7 @@ export default {
     }
   },
   mounted() {
-    this.info_count = this.$refs['wrapper'].clientWidth / this.info_width;
+    // this.info_count = this.$refs['wrapper'].clientWidth / this.info_width;
     window.setInterval(() => {
       if (++this.cur_page > this.pageCount) {
         this.cur_page = 1

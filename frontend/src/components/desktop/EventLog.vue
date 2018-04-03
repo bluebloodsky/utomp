@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <ul>
+  <section ref="wrapper">
+    <ul ref="content" :style="{top:top + 'px'}">
       <li v-for="event in events" :class="event.event_level">
         {{event.event_time}} {{event.location}} | {{event.event_desc}}
       </li>
@@ -12,7 +12,7 @@ export default {
   props: ['baseInfos'],
   data() {
     return {
-
+      top: 0
     }
   },
   computed: {
@@ -30,6 +30,19 @@ export default {
       })
       return _events.sort((a, b) => a.event_time > b.event_time ? 1 : -1)
     }
+  },
+  mounted() {
+    var wrapperHeight = this.$refs["wrapper"].clientHeight
+    var contentHeight = this.$refs["content"].clientHeight
+    if (contentHeight > wrapperHeight) {
+      window.setInterval(() => {
+        if (this.top == wrapperHeight - contentHeight) {
+          this.top = 0
+        } else if(this.top == 0) {
+          this.top = wrapperHeight - contentHeight
+        }
+      }, 5000)
+    }
   }
 }
 
@@ -39,8 +52,12 @@ section {
   overflow: hidden;
 }
 
-section:hover {
-  overflow-y: auto;
+ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;  
+  transition: top 3s ease 0s;
 }
 
 li {

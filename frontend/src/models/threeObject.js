@@ -16,3 +16,4 @@ export const CreateTunnel = (material, width, height, depth) => {
   group.add(topMesh)
   return group
 }
+

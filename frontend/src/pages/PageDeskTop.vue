@@ -3,7 +3,7 @@
     <div class="left-part">
       <section class="box">
         <header>GIS全览</header>
-        <MapLine></MapLine>
+        <Gis :baseInfos="baseInfos"></Gis>
       </section>
       <section class="box">
         <header>3D漫游展示</header>
@@ -14,8 +14,8 @@
         <SurVideo></SurVideo>
       </section>
       <section class="box">
-        <header>入廊管线</header>
-        <TunnelWire :baseInfos="baseInfos"></TunnelWire>
+        <header>告警事件统计</header>
+        <EventLog :baseInfos="baseInfos"></EventLog>
       </section>
     </div>
     <div class="right-part">
@@ -24,8 +24,8 @@
         <BaseInfo :baseInfos="baseInfos"></BaseInfo>
       </section>
       <section class="box">
-        <header>告警事件统计</header>
-        <EventLog :baseInfos="baseInfos"></EventLog>
+        <header>入廊管线</header>
+        <TunnelWire :baseInfos="baseInfos"></TunnelWire>
       </section>
       <section class="box">
         <header>设备故障统计</header>
@@ -45,7 +45,7 @@ import DeviceFault from '../components/desktop/DeviceFault'
 import TunnelWire from '../components/desktop/TunnelWire'
 import EventLog from '../components/desktop/EventLog'
 export default {
-  components: { ThreeWander, BaseInfo, Gis, DeviceFault ,TunnelWire ,EventLog ,MapLine,SurVideo},
+  components: { ThreeWander, BaseInfo, Gis, DeviceFault, TunnelWire, EventLog, MapLine, SurVideo },
   data() {
     return {
       baseInfos: []
@@ -61,21 +61,30 @@ export default {
 .desktop {
   position: absolute;
   top: 80px;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
 }
 
 .left-part {
   float: left;
-  width: 70%;
+  width: 100%;
   height: 100%;
+  z-index: 999;
 }
 
 .right-part {
-  float: left;
-  width: 30%;
+  position: absolute;
+  left: calc(100% - 1px);
+  right: -30%;
   height: 100%;
+  transition: all 0.6s ease 0s;
+}
+
+.right-part:hover {
+  left: 70%;
+  right: 0;
 }
 
 .box {
