@@ -8,7 +8,12 @@
 </template>
 <script>
 export default {
-  props: ['items']
+  props: ['items'],
+  mounted() {
+    if (!this.items || !this.items.length) {
+      this.$router.push({ path: '/home/desktop' })
+    }
+  }
 }
 
 </script>
@@ -33,7 +38,7 @@ a {
   border-radius: 10px;
 }
 
-a:hover{
+a:hover {
   background-color: #B91C47;
 }
 

@@ -4,9 +4,11 @@ import PageHome from '../pages/PageHome'
 import PageDeskTop from '../pages/PageDeskTop'
 import PageSubNav from '../pages/PageSubNav'
 import PageBodyMonitor from '../pages/PageBodyMonitor'
+import PageCableMonitor from '../pages/PageCableMonitor'
+import PageNotFind from '../pages/PageNotFind'
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [{
     path: '/',
     redirect: '/home',
@@ -16,6 +18,9 @@ export default new Router({
     redirect: '/home/desktop',
     component: PageHome,
     children: [{
+      path: 'not-find',
+      component: PageNotFind
+    },{
       path: 'desktop',
       component: PageDeskTop
     }, {
@@ -24,6 +29,22 @@ export default new Router({
     }, {
       path: 'body-monitor',
       component: PageBodyMonitor
+    }, {
+      path: 'cable-monitor',
+      component: PageCableMonitor
     }]
   }]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.length == 0) {
+    next({
+      path: '/home/not-find'
+    })
+  } else {
+
+    next()
+  }
+})
+
+export default router

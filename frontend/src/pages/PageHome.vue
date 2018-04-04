@@ -21,7 +21,11 @@
         </span>
       </div>
     </header>
-    <router-view :items="sub_menus"></router-view>
+    <keep-alive>
+      <transition>
+        <router-view :items="sub_menus"></router-view>
+      </transition>
+    </keep-alive>
   </div>
 </template>
 <script>
@@ -31,7 +35,7 @@ export default {
     return {
       nav_menus: [],
       sub_menus: [],
-      currentMenuIndex : 0,
+      currentMenuIndex: 0,
       dt: new Date(),
     }
   },
@@ -46,12 +50,12 @@ export default {
     t() {
       return this.dt.format("hh:mm:ss")
     },
-    d(){
+    d() {
       return this.dt.format("yyyy-MM-dd")
     }
   },
   methods: {
-    navClick(menu,index) {
+    navClick(menu, index) {
       this.sub_menus = menu.sub_menus
       this.$router.push(menu.url)
       this.currentMenuIndex = index
@@ -82,8 +86,9 @@ header nav a:hover,
 .selected {
   color: #44DCF4;
 }
+
 header nav a:hover i.iconfont,
-.selected i.iconfont{
+.selected i.iconfont {
   color: #fff;
 }
 
@@ -112,12 +117,14 @@ header nav a i.iconfont {
   height: 64px;
 }
 
-.right-info span{  
+.right-info span {
   color: #8B9DB7;
   font-size: 16px;
 }
-.right-info strong{
+
+.right-info strong {
   font-size: 22px;
   font-weight: normal;
 }
+
 </style>

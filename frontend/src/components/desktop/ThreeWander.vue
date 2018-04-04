@@ -45,6 +45,9 @@ export default {
     window.addEventListener("keypress", this.keypress)
   },
   methods: {
+    fullScreen(e) {
+      e.target.webkitRequestFullscreen()
+    },
     initThree() {
       let canvas = this.$refs['canvas']
       this.width = canvas.clientWidth
@@ -60,6 +63,7 @@ export default {
 
       this.renderer.domElement.addEventListener("mousewheel", this.mousewheel, false)
 
+      this.renderer.domElement.addEventListener("dblclick", this.fullScreen)
       canvas.appendChild(this.renderer.domElement)
       // this.renderer.setClearColor(0xFFFFFF, 1.0)
     },

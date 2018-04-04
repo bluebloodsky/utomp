@@ -21,7 +21,7 @@ export const NAV_MENUS = [{
   }, {
     name_cn: '安防监控',
     icon: 'icon-clock',
-    url: 'rain-monitor'
+    url: 'safe-monitor'
   }]
 }, {
   name_cn: '巡检维护',
@@ -30,23 +30,23 @@ export const NAV_MENUS = [{
   sub_menus: [{
     name_cn: '巡检总览',
     icon: 'icon-browse',
-    url: 'body-monitor',
+    url: 'inspect-view',
   }, {
     name_cn: '任务管理',
     icon: 'icon-tasklist',
-    url: 'cable-monitor',
+    url: 'task-manage',
   }, {
     name_cn: '巡检统计',
     icon: 'icon-dynamic',
-    url: 'rain-monitor'
+    url: 'inspect-statistics'
   }, {
     name_cn: '巡检日志',
     icon: 'icon-order',
-    url: 'rain-monitor'
+    url: 'inspect-log'
   }, {
     name_cn: '配置管理',
     icon: 'icon-setup',
-    url: 'rain-monitor'
+    url: 'setting-manage'
   }]
 }, {
   name_cn: '入廊作业',
@@ -55,15 +55,15 @@ export const NAV_MENUS = [{
   sub_menus: [{
     name_cn: '管线基本信息管理',
     icon: 'icon-barrage',
-    url: 'body-monitor',
+    url: 'wire-manage',
   }, {
     name_cn: '人员及权限管理',
     icon: 'icon-group',
-    url: 'cable-monitor',
+    url: 'org-manage',
   }, {
     name_cn: '监测设备管理',
     icon: 'icon-mobilephone',
-    url: 'rain-monitor'
+    url: 'sensor-manage'
   }]
 }, {
   name_cn: '应急指挥',
@@ -72,7 +72,7 @@ export const NAV_MENUS = [{
   sub_menus: [{
     name_cn: '待定',
     icon: 'icon-lock',
-    url: 'body-monitor',
+    url: 'unknown',
   }]
 }, {
   name_cn: '空间管理',
@@ -81,6 +81,6 @@ export const NAV_MENUS = [{
   sub_menus: [{
     name_cn: '待定',
     icon: 'icon-lock',
-    url: 'body-monitor',
+    url: 'unknown',
   }]
 }]
