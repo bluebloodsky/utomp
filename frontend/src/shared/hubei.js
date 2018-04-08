@@ -1,4 +1,4 @@
-export const hubei = {
+export default {
   "type": "FeatureCollection",
   "features": [{
     "id": "420100",

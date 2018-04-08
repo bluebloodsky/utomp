@@ -2,9 +2,7 @@
   <section>
     <!-- <video :src="'http://localhost:8088/lims/api/index.php/files/' + i + '.mp4'"
   	autoplay loop v-for="i in 4"></video> -->
-    <div v-for="i in 4">
-      <img :src="'http://61.83.161.2:10000/mjpeg.cgi?channel='+i+'&user=guest&password=guest&time=' + dt" @dblclick="fullScreen">
-    </div>
+      <img :src="'http://61.83.161.2:10000/mjpeg.cgi?channel='+i+'&user=guest&password=guest&time=' + dt" @dblclick="fullScreen"  v-for="i in 4">
   </section>
 </template>
 <script>
@@ -28,23 +26,23 @@ export default {
 
 </script>
 <style scoped>
-div {
-  display: inline-block;
+section{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+}
+img {
   height: calc(50% - 5px);
   width: calc(50% - 5px);
 }
-
-div:nth-child(odd) {
-  margin-right: 5px;
-}
-
-div img {
-  height: 100%;
-  width: 100%;
-}
-
-div img:hover {
+img:hover {
   cursor: pointer;
 }
 
+img:-webkit-full-screen {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+}
 </style>

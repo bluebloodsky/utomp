@@ -14,7 +14,7 @@
         <SurVideo></SurVideo>
       </section>
       <section class="box">
-        <header>告警事件统计</header>
+        <header>事件统计</header>
         <EventLog :baseInfos="baseInfos"></EventLog>
       </section>
     </div>
