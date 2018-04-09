@@ -49,7 +49,7 @@ div {
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  margin: 30px 5px;
+  margin: 30px 0px;
 }
 
 .box {
@@ -60,6 +60,24 @@ div {
   margin-right: 5px;
   width: 230px;
   height: 180px;
+}
+
+.box>header {
+  position: relative;
+  text-align: left;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 5px;
+}
+
+.box>section {
+  position: absolute;
+  top: 32px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 li {

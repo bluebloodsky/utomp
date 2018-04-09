@@ -48,24 +48,6 @@ body {
   -webkit-box-sizing: border-box;
 }
 
-.box>header {
-  position: relative;
-  text-align: left;
-  height: 30px;
-  line-height: 30px;
-  padding-left: 5px;
-}
-
-.box>section {
-  position: absolute;
-  top: 32px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
 /*去掉百度地图logo*/
 .BMap_cpyCtrl {
   display: none;
@@ -74,3 +56,4 @@ body {
 .anchorBL {
   display: none;
 }
+

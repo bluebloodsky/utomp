@@ -100,14 +100,12 @@ export default {
 .left-part .box:nth-child(2) {
   width: calc(50% - 5px);
   height: calc(60% - 5px);
-  overflow: hidden;
 }
 
 .left-part .box:nth-child(3),
 .left-part .box:nth-child(4) {
   width: calc(50% - 5px);
   height: calc(40% - 5px);
-  overflow: hidden;
 }
 
 .right-part .box {
@@ -124,6 +122,23 @@ export default {
 
 .right-part .box:nth-child(3) {
   height: calc(30% - 5px);
+}
+
+.box>header {
+  position: relative;
+  text-align: left;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 5px;
+}
+
+.box>section {
+  position: absolute;
+  top: 32px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
 }
 
 </style>

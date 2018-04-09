@@ -5,6 +5,9 @@ import PageDeskTop from '../pages/PageDeskTop'
 import PageSubNav from '../pages/PageSubNav'
 import PageBodyMonitor from '../pages/PageBodyMonitor'
 import PageCableMonitor from '../pages/PageCableMonitor'
+import PageInspectView from '../pages/PageInspectView'
+import PageTaskManage from '../pages/PageTaskManage'
+import PageWireManage from '../pages/PageWireManage'
 import PageNotFind from '../pages/PageNotFind'
 Vue.use(Router)
 
@@ -32,6 +35,15 @@ const router = new Router({
     }, {
       path: 'cable-monitor',
       component: PageCableMonitor
+    }, {
+      path: 'inspect-view',
+      component: PageInspectView
+    }, {
+      path: 'task-manage',
+      component: PageTaskManage
+    }, {
+      path: 'wire-manage',
+      component: PageWireManage
     }]
   }]
 })
