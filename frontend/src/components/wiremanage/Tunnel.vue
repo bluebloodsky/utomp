@@ -1,10 +1,5 @@
 <template>
-  <section>
-    FOV:
-    <input v-model.number="fov">(0~180)
-    <input type="checkbox" v-model="moveFlg">漫游
-    <div ref="canvas"></div>
-    <section ref="stats" v-show="false"></section>
+  <section ref="canvas">
   </section>
 </template>
 <script>
@@ -18,7 +13,6 @@ export default {
       renderer: null,
       camera: null,
       scene: null,
-      stats: null,
       material: null,
       rocks: null,
       angle: 0,
@@ -29,7 +23,6 @@ export default {
   mounted() {
     this.initThree()
     this.initScene()
-    this.initStats()
     this.initCamera()
     this.initLight()
     this.createBox()
@@ -67,20 +60,13 @@ export default {
       canvas.appendChild(this.renderer.domElement)
       // this.renderer.setClearColor(0xFFFFFF, 1.0)
     },
-    initStats() {
-      this.stats = new Stats()
-      this.stats.setMode(0)
-      this.stats.domElement.style = { position: 'absolute', left: 0, top: 0 }
-      this.$refs['stats'].appendChild(this.stats.domElement)
-    },
     initScene() {
       this.scene = new THREE.Scene()
       // this.scene.fog = new THREE.Fog(0xFFFFFF, 0.015, 100)
     },
     initCamera() {
       this.camera = new THREE.PerspectiveCamera(this.fov, this.width / this.height, 1, 100)
-      this.camera.position.set(2, 2, 402)
-
+      this.camera.position.set(2.8, 2, 406)
 
       // let c = this.camera
       // let helper = new THREE.CameraHelper(c);
@@ -107,14 +93,13 @@ export default {
       var textureLoader = new THREE.TextureLoader()
       textureLoader.load(require('../../assets/wall.jpg'), t => {
         t.wrapS = t.wrapT = THREE.RepeatWrapping
-        t.repeat.set(10, 1)
+        t.repeat.set(100, 1)
         var material = new THREE.MeshBasicMaterial({ map: t })
         var tunnel = CreateTunnel(material, 3, 4, 800)
         this.scene.add(tunnel)
         tunnel = CreateTunnel(material, 3, 4, 800)
         tunnel.translateX(3)
         this.scene.add(tunnel)
-        this.moveFlg = true
       })
     },
     createObject() {
@@ -182,7 +167,6 @@ export default {
 
     },
     render() {
-      this.stats.update()
       this.changeFov()
       if (this.moveFlg) {
         this.changeCameraPosition()

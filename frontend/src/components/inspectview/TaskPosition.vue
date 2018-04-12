@@ -67,11 +67,18 @@ header {
 
 header span {
   margin-right: 30px;
-  color: #353A4D;
 }
 
 header strong {
-  color: #869AA5;
+  color: #90DFE4;
+}
+
+header input {
+  width: calc(100% - 110px);
+  height: 22px;
+  background-color: #f0f0f0;
+  border: 2px solid #B8C2CC;
+  padding-left: 5px;
 }
 
 section>section {
@@ -82,6 +89,7 @@ section>section {
   right: 0;
   overflow-y: auto;
 }
+
 
 
 /*table {
@@ -142,4 +150,5 @@ ul:not(:first-child) li:first-child {
   background-color: #9DA4B4;
   color: #E5E9F4;
 }
+
 </style>

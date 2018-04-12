@@ -71,15 +71,16 @@ export default {
   float: left;
   width: 100%;
   height: 100%;
-  z-index: 999;
 }
 
 .right-part {
   position: absolute;
   left: calc(100% - 1px);
+
   right: -30%;
   height: 100%;
   transition: all 0.6s ease 0s;
+  z-index: 99;
 }
 
 .right-part:hover {
@@ -88,9 +89,10 @@ export default {
 }
 
 .box {
-  border: 1px solid #666;
+  border: 1px solid #3864A3;
+  border-radius: 5px;
   font-size: 16px;
-  background-color: #311B28;
+  background-color: #1A1011;
   margin-bottom: 5px;
   margin-right: 5px;
   float: left;

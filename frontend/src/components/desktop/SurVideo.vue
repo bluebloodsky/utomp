@@ -9,12 +9,12 @@
 export default {
   data() {
     return {
-      dt: (new Date()).getTime()
+      dt: (new Date).getTime()
     }
   },
   mounted() {
     // window.setInterval(() => {
-    //   this.dt = (new Date()).getTime()
+    //   this.dt = (new Date).getTime()
     // }, 500)
   },
   methods: {

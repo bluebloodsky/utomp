@@ -72,7 +72,7 @@ export default {
 }
 
 .left-box header input {
-  width: 60%;
+  width: calc(100% - 220px);
   height: 22px;
   background-color: #f0f0f0;
   border: 2px solid #B8C2CC;

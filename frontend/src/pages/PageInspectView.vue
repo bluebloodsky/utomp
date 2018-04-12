@@ -18,7 +18,7 @@ import TaskPosition from '../components/inspectview/TaskPosition'
 import RecentInfo from '../components/inspectview/RecentInfo'
 import TaskDevice from '../components/inspectview/TaskDevice'
 export default {
-  components: { TaskPosition ,TaskDevice,RecentInfo },
+  components: { TaskPosition, TaskDevice, RecentInfo },
   data() {
     return {
       pages: ['任务位置', '任务设备', '人员班组'],
@@ -36,6 +36,7 @@ export default {
   right: 0;
   bottom: 0;
   overflow: hidden;
+  background-color: #5987A9;
 }
 
 .main-box {
@@ -45,13 +46,13 @@ export default {
   right: 40%;
   bottom: 0;
   float: left;
-  background-color: #C5C5CF;
+  background-color: #38648D;
 }
 
 
 .main-box>nav {
   width: 32px;
-  background-color: #311B28;
+  background-color: #10406A;
   height: 100%;
 }
 
@@ -63,11 +64,11 @@ export default {
 }
 
 .main-box nav a:hover {
-  background-color: #5F1003;
+  background-color: #306C95;
 }
 
 .main-box nav a.select {
-  background-color: #5B1000;
+  background-color: #174791;
 }
 
 .main-box>section {
@@ -81,10 +82,11 @@ export default {
 
 .right-box {
   position: absolute;
-  left: 60%;
+  left: calc(60% + 10px);
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: #BABAC6;
+  background-color: #38648D;
 }
+
 </style>

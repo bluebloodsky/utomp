@@ -27,7 +27,7 @@ img {
 
 html,
 body {
-  background-color: #163E79;
+  background-color: #0C2659;
 }
 
 #app {
@@ -37,7 +37,16 @@ body {
   color: #fff;
 }
 
-
+input,button{
+  outline: none;
+}
+header button{
+  background-color: #228E9A;
+  padding: 3px 15px;
+  border-radius: 10px;
+  border:1px solid #84CCDA;
+  color:#fff;
+}
 
 /*基本盒子格式，定义为宽度包含边框内边距*/
 

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <header> 最近更新时间: {{dt.format("yyyy/MM/dd , hh:mm")}}</header>
+    <header> 最近更新时间: {{dt}}</header>
     <section>
       <ul>
         <li>时间</li>
@@ -21,7 +21,7 @@
 export default {
   data() {
     return {
-      dt: new Date(),
+      dt: (new Date).format("yyyy/MM/dd , hh:mm"),
     }
   }
 }
@@ -30,9 +30,8 @@ export default {
 <style scoped>
 header {
   height: 40px;
-  font-size: 20px;
-  color: #606374;
-  background-color: #A9A9B5;
+  font-size: 16px;
+  background-color: #10406A;
   display: flex;
   justify-content: flex-start;
   padding-left: 15px;
@@ -53,8 +52,7 @@ ul {
   justify-content: space-around;
   align-items: center;
   margin: 0 10px 10px 10px;
-  background-color: #DADBDF;
-  color: #707070;
+  background-color: #204E99;
 }
 
 ul:first-child {

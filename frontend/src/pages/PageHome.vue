@@ -84,7 +84,7 @@ header nav a {
 
 header nav a:hover,
 .selected {
-  color: #44DCF4;
+  color: #4FD4FF;
 }
 
 header nav a:hover i.iconfont,
