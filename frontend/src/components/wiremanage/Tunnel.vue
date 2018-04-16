@@ -3,19 +3,20 @@
   </section>
 </template>
 <script>
-import { CreateTunnel } from '@/models/threeObject'
 export default {
   data() {
     return {
       fov: 45,
       step: 1,
       moveFlg: false,
+      clock: new THREE.Clock,
+      meshes: [],
+      mixers: [],
+      hemisphereLight: null,
+      pointLight: null,
       renderer: null,
       camera: null,
       scene: null,
-      material: null,
-      rocks: null,
-      angle: 0,
       width: 0,
       height: 0
     }
@@ -23,10 +24,9 @@ export default {
   mounted() {
     this.initThree()
     this.initScene()
-    this.initCamera()
     this.initLight()
-    this.createBox()
-    this.createObject()
+    this.loadModel()
+
     this.render()
     window.addEventListener("resize", () => {
       let canvas = this.$refs['canvas']
@@ -45,11 +45,7 @@ export default {
       let canvas = this.$refs['canvas']
       this.width = canvas.clientWidth
       this.height = canvas.clientHeight
-      this.renderer = new THREE.WebGLRenderer({
-        alpha: true,
-        antialias: true,
-        // preserveDrawingBuffer: true, //是否保存绘图缓冲  
-      })
+      this.renderer = new THREE.WebGLRenderer({})
       this.renderer.shadowMap.enabled = true
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
       this.renderer.setSize(this.width, this.height)
@@ -64,114 +60,80 @@ export default {
       this.scene = new THREE.Scene()
       // this.scene.fog = new THREE.Fog(0xFFFFFF, 0.015, 100)
     },
-    initCamera() {
-      this.camera = new THREE.PerspectiveCamera(this.fov, this.width / this.height, 1, 100)
-      this.camera.position.set(2.8, 2, 406)
-
-      // let c = this.camera
-      // let helper = new THREE.CameraHelper(c);
-      // this.scene.add(helper);
-    },
     initLight() {
-      let directLight = new THREE.DirectionalLight(0xff0000, 1.0, 0)
-      directLight.position.set(0, 0, 1000)
-      this.scene.add(directLight)
-
-      var ambiColor = "#0c0c0c"
-      let ambientLight = new THREE.AmbientLight(ambiColor)
+      var ambiColor = "0x161616"
+      let ambientLight = new THREE.AmbientLight(ambiColor, 1)
       this.scene.add(ambientLight)
 
-      let pointlight = new THREE.PointLight(0xff0000)
-      pointlight.position.set(0, 0, 200)
-      this.scene.add(pointlight)
-
     },
+    loadModel() {
+      var loader = new THREE.JDLoader()
+      loader.load("http://localhost:8088/lims/api/index.php/files/anim.jd", data => {
+        for (var i = 0; i < data.objects.length; ++i) {
+          if (data.objects[i].type == "Mesh" || data.objects[i].type == "SkinnedMesh") {
+            var mesh = null;
+            var matArray = this.createMaterials(data);
+            if (data.objects[i].type == "SkinnedMesh") {
+              mesh = new THREE.SkinnedMesh(data.objects[i].geometry, matArray);
+            } else // Mesh
+            {
+              mesh = new THREE.Mesh(data.objects[i].geometry, matArray);
+            }
+            this.meshes.push(mesh);
+            this.scene.add(mesh);
 
-    createBox() {
-      var axes = new THREE.AxisHelper(200)
-      this.scene.add(axes)
-      var textureLoader = new THREE.TextureLoader()
-      textureLoader.load(require('../../assets/wall.jpg'), t => {
-        t.wrapS = t.wrapT = THREE.RepeatWrapping
-        t.repeat.set(100, 1)
-        var material = new THREE.MeshBasicMaterial({ map: t })
-        var tunnel = CreateTunnel(material, 3, 4, 800)
-        this.scene.add(tunnel)
-        tunnel = CreateTunnel(material, 3, 4, 800)
-        tunnel.translateX(3)
-        this.scene.add(tunnel)
-      })
-    },
-    createObject() {
+            if (mesh && mesh.geometry.animations) {
+              var mixer = new THREE.AnimationMixer(mesh);
+              this.mixers.push(mixer);
+              var action = mixer.clipAction(mesh.geometry.animations[0]);
+              action.play();
+            }
+          } else if (data.objects[i].type == "Line") {
+            var jd_color = data.objects[i].jd_object.color;
+            var color1 = new THREE.Color(jd_color[0] / 255, jd_color[1] / 255, jd_color[2] / 255);
+            var material = new THREE.LineBasicMaterial({ color: color1 }); //{ color: new THREE.Color( 0xff0000 ) }
+            var line = new THREE.Line(data.objects[i].geometry, material);
+            this.scene.add(line);
 
-      var points = [new THREE.Vector3(1, 2, 400),
-        new THREE.Vector3(1, 2, -400)
-      ]
-
-      var meshMaterial = new THREE.MeshDepthMaterial({ color: 0x000000 })
-
-      var tubeGeometry = new THREE.TubeGeometry(new THREE.SplineCurve3(points),1,0.2,64 )
-
-      var tubeMesh = new THREE.Mesh(tubeGeometry,meshMaterial)
-      this.scene.add(tubeMesh)
-
-      // var cylinderGeometry = new THREE.CylinderGeometry(0.1, 0.1, 800)
-      // var meshMaterial = new THREE.MeshDepthMaterial({ color: 0x000000 })
-      // var mesh = new THREE.Mesh(cylinderGeometry, meshMaterial)
-      // mesh.rotateX(0.5 * Math.PI)
-      // mesh.translateX(1)
-      // mesh.translateZ(-2)
-      // this.scene.add(mesh)
-
-      // mesh = new THREE.Mesh(cylinderGeometry, meshMaterial)
-      // mesh.rotateX(0.5 * Math.PI)
-      // mesh.translateX(1)
-      // mesh.translateZ(-1.5)
-      // this.scene.add(mesh)
-
-    },
-    loadRockTexture() {
-      var textureLoader = new THREE.TextureLoader()
-      textureLoader.load(require('../../assets/wall.jpg'), t => {
-        t.wrapS = t.wrapT = THREE.RepeatWrapping
-        t.repeat.set(100, 1)
-        this.material = new THREE.MeshLambertMaterial({ map: t })
-        this.createRocks()
-      })
-    },
-    createRocks() {
-      this.rocks = []
-      for (var i = 0; i < 100; i++) {
-
-        var size = 10 + Math.random() * 10
-        var geometry = new THREE.IcosahedronGeometry(size, 0)
-        var icosahedron = new THREE.Mesh(geometry, this.material)
-
-        for (var j = 0, l = geometry.vertices.length; j < l; j++) {
-          geometry.vertices[j].x += size * -0.25 + Math.random() * size * 0.5;
-          geometry.vertices[j].y += size * -0.25 + Math.random() * size * 0.5;
+            if (line.geometry.animations) {
+              var mixer = new THREE.AnimationMixer(line);
+              this.mixers.push(mixer);
+              var action = mixer.clipAction(line.geometry.animations[0]);
+              action.play();
+            }
+          }
         }
 
-        var variance = 0.01
-
-        var field = 300
-        icosahedron.position.x = -field + Math.random() * field * 2;
-        icosahedron.position.y = -field + Math.random() * field * 2;
-        icosahedron.position.z = -field + Math.random() * field * 2;
-
-        this.scene.add(icosahedron)
-        this.rocks.push(icosahedron)
-      }
+        var near = 1,
+          far = 10 * data.boundingSphere.radius;
+        this.camera = new THREE.PerspectiveCamera(70, this.width / this.height, near, far);
+        this.camera.position.z = data.boundingSphere.center.z + 2.5 * data.boundingSphere.radius;
+        this.camera.lookAt(data.boundingSphere.center);
+        this.camera.add(new THREE.DirectionalLight(0xFFFFFF, 1));
+        this.scene.add(this.camera)
+      })
     },
-    Rock() {
-
+    createMaterials(data) {
+      var matArray = [];
+      for (var j = 0; j < data.materials.length; ++j) {
+        var mat = new THREE.MeshPhongMaterial({});
+        mat.copy(data.materials[j]);
+        //mat.transparent = true;
+        matArray.push(mat);
+      }
+      return matArray;
     },
     render() {
-      this.changeFov()
-      if (this.moveFlg) {
-        this.changeCameraPosition()
+      var delta = this.clock.getDelta();
+      for (var i = 0; i < this.mixers.length; ++i)
+        this.mixers[i].update(delta);
+      if (this.camera) {
+        this.changeFov()
+        if (this.moveFlg) {
+          this.changeCameraPosition()
+        }
+        this.renderer.render(this.scene, this.camera)
       }
-      this.renderer.render(this.scene, this.camera)
       requestAnimationFrame(this.render)
     },
     changeCameraPosition() {
@@ -211,6 +173,10 @@ export default {
         this.camera.rotateX(0.1)
       } else if (e.code == "KeyG") {
         this.camera.rotateX(-0.1)
+      }else if (e.code == "KeyH") {
+        this.camera.rotateZ(0.1)
+      } else if (e.code == "KeyY") {
+        this.camera.rotateZ(-0.1)
       }
     }
   }
