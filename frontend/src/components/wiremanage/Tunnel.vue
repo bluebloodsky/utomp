@@ -68,7 +68,7 @@ export default {
     },
     loadModel() {
       var loader = new THREE.JDLoader()
-      loader.load("http://localhost:8088/lims/api/index.php/files/anim.jd", data => {
+      loader.load("../../../static/model/anim.jd", data => {
         for (var i = 0; i < data.objects.length; ++i) {
           if (data.objects[i].type == "Mesh" || data.objects[i].type == "SkinnedMesh") {
             var mesh = null;

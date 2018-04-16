@@ -92,7 +92,7 @@ export default {
     },
     loadModel() {
       var loader = new THREE.JDLoader()
-      loader.load("http://localhost:8088/lims/api/index.php/files/kd.jd", data => {
+      loader.load("../../../static/model/kd.jd", data => {
         for (var i = 0; i < data.objects.length; ++i) {
           if (data.objects[i].type == "Mesh" || data.objects[i].type == "SkinnedMesh") {
             var mesh = null;
@@ -131,9 +131,9 @@ export default {
         var near = 1,
           far = 4 * data.boundingSphere.radius;
         this.camera = new THREE.PerspectiveCamera(this.fov, this.width / this.height, near, far);
-        this.camera.position.x = data.boundingSphere.center.x+ 1.0 * data.boundingSphere.radius
+        this.camera.position.x = data.boundingSphere.center.x +  data.boundingSphere.radius 
         this.camera.position.y = data.boundingSphere.center.y 
-        this.camera.position.z = data.boundingSphere.center.z 
+        this.camera.position.z = data.boundingSphere.center.z
 
         this.camera.lookAt(data.boundingSphere.center);
         this.camera.add(new THREE.DirectionalLight(0xFFFFFF, 1));
