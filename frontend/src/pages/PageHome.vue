@@ -21,11 +21,7 @@
         </span>
       </div>
     </header>
-    <keep-alive>
-      <transition>
-        <router-view :items="sub_menus"></router-view>
-      </transition>
-    </keep-alive>
+    <router-view :items="sub_menus"></router-view>
   </div>
 </template>
 <script>

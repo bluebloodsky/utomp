@@ -7,21 +7,50 @@ export const NAV_MENUS = [{
   icon: 'icon-camera',
   url: 'subnav',
   sub_menus: [{
-    name_cn: '管廊本体监控',
+    name_cn: '管廊本体监测',
     icon: 'icon-computer',
     url: 'body-monitor',
   }, {
-    name_cn: '电力电缆监控',
+    name_cn: 'GIL监测',
+    icon: 'icon-tailor',
+    url: 'gil-monitor',
+  }, {
+    name_cn: '电力电缆监测',
     icon: 'icon-tailor',
     url: 'cable-monitor',
   }, {
-    name_cn: '雨污仓数据监控',
+    name_cn: '配电监测',
+    icon: 'icon-tailor',
+    url: 'cable-monitor',
+  }, {
+    name_cn: '雨污仓数据监测',
     icon: 'icon-integral',
     url: 'rain-monitor'
   }, {
     name_cn: '安防监控',
     icon: 'icon-clock',
     url: 'safe-monitor'
+  }, {
+    name_cn: '预警控制',
+    icon: 'icon-clock',
+    url: 'safe-monitor'
+  }, {
+    name_cn: '通信系统',
+    icon: 'icon-clock',
+    url: 'safe-monitor'
+  }]
+}, {
+  name_cn: '日常值守',
+  icon: 'icon-group',
+  url: 'subnav',
+  sub_menus: [{
+    name_cn: '事件处置',
+    icon: 'icon-questions',
+    url: 'inspect-view',
+  }, {
+    name_cn: '入廊作业',
+    icon: 'icon-tasklist',
+    url: 'task-manage',
   }]
 }, {
   name_cn: '巡检维护',
@@ -75,6 +104,15 @@ export const NAV_MENUS = [{
     url: 'unknown',
   }]
 }, {
+  name_cn: '检修数据',
+  icon: 'icon-offline',
+  url: 'subnav',
+  sub_menus: [{
+    name_cn: '待定',
+    icon: 'icon-lock',
+    url: 'unknown',
+  }]
+} ,{
   name_cn: '空间管理',
   icon: 'icon-coordinates',
   url: 'subnav',

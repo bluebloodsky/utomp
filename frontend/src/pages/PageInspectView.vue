@@ -68,7 +68,7 @@ export default {
 }
 
 .main-box nav a.select {
-  background-color: #174791;
+  background-color: #38648D;
 }
 
 .main-box>section {

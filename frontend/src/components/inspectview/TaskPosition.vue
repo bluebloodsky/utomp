@@ -63,6 +63,7 @@ export default {
 header {
   height: 40px;
   font-size: 14px;
+  background-color: #10406A;
 }
 
 header span {
@@ -122,18 +123,18 @@ ul {
   justify-content: space-around;
   align-items: center;
   margin: 0 10px 10px 10px;
-  background-color: #DADBDF;
+  background-color: #EAF1F7;
   color: #707070;
 }
 
 ul:not(:first-child):hover {
-  background-color: #D3D1C4;
+  background-color: #D0DEE9;
   cursor: pointer;
 }
 
 ul:first-child {
   color: #4D5265;
-  background-color: #CACAD4;
+  background-color: #B0C6DB;
   margin: 0 0 20px 0;
 }
 

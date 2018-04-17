@@ -52,15 +52,19 @@ ul {
   justify-content: space-around;
   align-items: center;
   margin: 0 10px 10px 10px;
-  background-color: #204E99;
+  background-color: #EAF1F7;
+  color: #4D5265;
 }
 
 ul:first-child {
-  background-color: #BDBDC9;
-  color: #4D5265;
-  margin: 0  0 20px 0;
+  background-color: #B0C6DB;
+  margin: 0 0 20px 0;
 }
 
+ul:not(:first-child):hover {
+  background-color: #D0DEE9;
+  cursor: pointer;
+}
 
 ul li {
   width: 15%;

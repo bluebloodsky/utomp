@@ -6,6 +6,7 @@ import PageSubNav from '../pages/PageSubNav'
 import PageBodyMonitor from '../pages/PageBodyMonitor'
 import PageCableMonitor from '../pages/PageCableMonitor'
 import PageInspectView from '../pages/PageInspectView'
+import PageGILMonitor from '../pages/PageGILMonitor'
 import PageTaskManage from '../pages/PageTaskManage'
 import PageWireManage from '../pages/PageWireManage'
 import PageNotFind from '../pages/PageNotFind'
@@ -32,6 +33,9 @@ const router = new Router({
     }, {
       path: 'body-monitor',
       component: PageBodyMonitor
+    }, {
+      path: 'gil-monitor',
+      component: PageGILMonitor
     }, {
       path: 'cable-monitor',
       component: PageCableMonitor

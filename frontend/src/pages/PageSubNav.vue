@@ -21,8 +21,9 @@ export default {
 .sub-nav {
   margin-top: 50px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-content: center;
+  flex-wrap: wrap;
 }
 
 a {

@@ -2,20 +2,19 @@
   <section>
     <!-- <video :src="'http://localhost:8088/lims/api/index.php/files/' + i + '.mp4'"
   	autoplay loop v-for="i in 4"></video> -->
-      <img :src="'http://61.83.161.2:10000/mjpeg.cgi?channel='+i+'&user=guest&password=guest&time=' + dt" @dblclick="fullScreen"  v-for="i in 4">
+      <img :src="imgSrc" @dblclick="fullScreen"  v-for="imgSrc in imgSrcs">
   </section>
 </template>
 <script>
 export default {
+  props:['imgSrcs'],
   data() {
     return {
       dt: (new Date).getTime()
     }
   },
   mounted() {
-    // window.setInterval(() => {
-    //   this.dt = (new Date).getTime()
-    // }, 500)
+   
   },
   methods: {
     fullScreen(e) {

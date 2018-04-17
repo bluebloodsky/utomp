@@ -11,7 +11,7 @@
       </section>
       <section class="box">
         <header>视频监控</header>
-        <SurVideo></SurVideo>
+        <SurVideo :imgSrcs="imgSrcs"></SurVideo>
       </section>
       <section class="box">
         <header>事件统计</header>
@@ -48,11 +48,15 @@ export default {
   components: { ThreeWander, BaseInfo, Gis, DeviceFault, TunnelWire, EventLog, MapLine, SurVideo },
   data() {
     return {
-      baseInfos: []
+      baseInfos: [],
+      imgSrcs: []
     }
   },
   created() {
     this.baseInfos = BASE_INFOS
+    for (let i = 0; i < 4; i++) {
+      this.imgSrcs.push('http://61.83.161.2:10000/mjpeg.cgi?channel=' + i + '&user=guest&password=guest&time=' + (new Date).getTime())
+    }
   }
 }
 
