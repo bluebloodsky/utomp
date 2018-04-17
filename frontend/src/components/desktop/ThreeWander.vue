@@ -165,7 +165,7 @@ export default {
       // if (this.camera.position.z > 404) {
       //   this.step = -0.1
       // }
-      this.camera.position.z += this.step
+      this.camera.translateZ(-this.step)
       // if (this.camera.position.z < -396) {
       //   this.camera.position.z = 404
       // }
@@ -198,6 +198,10 @@ export default {
         this.camera.rotateZ(0.1)
       } else if (e.code == "KeyG") {
         this.camera.rotateZ(-0.1)
+      }else if (e.code == "KeyH") {
+        this.camera.rotateX(0.1)
+      } else if (e.code == "KeyY") {
+        this.camera.rotateX(-0.1)
       }
     }
   }
