@@ -9,6 +9,7 @@ import PageInspectView from '../pages/PageInspectView'
 import PageGILMonitor from '../pages/PageGILMonitor'
 import PageTaskManage from '../pages/PageTaskManage'
 import PageWireManage from '../pages/PageWireManage'
+import PageEventHandle from '../pages/PageEventHandle'
 import PageNotFind from '../pages/PageNotFind'
 Vue.use(Router)
 
@@ -24,7 +25,7 @@ const router = new Router({
     children: [{
       path: 'not-find',
       component: PageNotFind
-    },{
+    }, {
       path: 'desktop',
       component: PageDeskTop
     }, {
@@ -48,6 +49,9 @@ const router = new Router({
     }, {
       path: 'wire-manage',
       component: PageWireManage
+    }, {
+      path: 'event-handle',
+      component: PageEventHandle
     }]
   }]
 })

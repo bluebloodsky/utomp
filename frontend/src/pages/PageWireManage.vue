@@ -23,18 +23,11 @@ export default {
   data() {
     return {
       nav: [{
-        label: '光谷一路',
+        label: '东湖高新区',
         children: [{
-          label: '电力舱'
+          label: '光谷一路'
         }, {
-          label: '综合舱'
-        }]
-      }, {
-        label: '光谷二路',
-        children: [{
-          label: '电力舱'
-        }, {
-          label: '综合舱'
+          label: '光谷二路'
         }]
       }]
     }

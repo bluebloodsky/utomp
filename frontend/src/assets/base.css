@@ -57,6 +57,18 @@ header button{
   -webkit-box-sizing: border-box;
 }
 
+button[type="text"]{
+  background-color: transparent;
+  border: none;
+  color: #409EFF;
+  padding: 0 3px;
+  outline: none;
+}
+
+button[type="text"]:hover{
+  opacity: 0.5;
+}
+
 /*去掉百度地图logo*/
 .BMap_cpyCtrl {
   display: none;

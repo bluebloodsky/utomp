@@ -54,8 +54,9 @@ export default {
   },
   created() {
     this.baseInfos = BASE_INFOS
-    for (let i = 0; i < 4; i++) {
-      this.imgSrcs.push('http://61.83.161.2:10000/mjpeg.cgi?channel=' + i + '&user=guest&password=guest&time=' + (new Date).getTime())
+    for (let i = 1; i < 5; i++) {
+      this.imgSrcs.push('http://61.83.161.2:10000/mjpeg.cgi?channel=' + i + '&user=guest&password=guest&time=1524039431169'
+       )
     }
   }
 }

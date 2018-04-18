@@ -17,7 +17,7 @@ export default {
       },
       legend: {
         orient: 'vertical',
-        x: 'left',
+        x: 'right',
         textStyle: {
           color: '#fff'
         },

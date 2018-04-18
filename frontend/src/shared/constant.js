@@ -46,11 +46,15 @@ export const NAV_MENUS = [{
   sub_menus: [{
     name_cn: '事件处置',
     icon: 'icon-questions',
-    url: 'inspect-view',
+    url: 'event-handle',
   }, {
+  //   name_cn: '巡检监控',
+  //   icon: 'icon-tasklist',
+  //   url: 'wire-manage',
+  // }, {
     name_cn: '入廊作业',
-    icon: 'icon-tasklist',
-    url: 'task-manage',
+    icon: 'icon-barrage',
+    url: 'wire-manage',
   }]
 }, {
   name_cn: '巡检维护',
@@ -77,7 +81,9 @@ export const NAV_MENUS = [{
     icon: 'icon-setup',
     url: 'setting-manage'
   }]
-}, {
+}
+/*
+, {
   name_cn: '入廊作业',
   icon: 'icon-createtask',
   url: 'subnav',
@@ -94,7 +100,9 @@ export const NAV_MENUS = [{
     icon: 'icon-mobilephone',
     url: 'sensor-manage'
   }]
-}, {
+}
+*/
+, {
   name_cn: '应急指挥',
   icon: 'icon-remind',
   url: 'subnav',
@@ -104,7 +112,7 @@ export const NAV_MENUS = [{
     url: 'unknown',
   }]
 }, {
-  name_cn: '检修数据',
+  name_cn: '辅助决策',
   icon: 'icon-offline',
   url: 'subnav',
   sub_menus: [{
@@ -112,9 +120,9 @@ export const NAV_MENUS = [{
     icon: 'icon-lock',
     url: 'unknown',
   }]
-} ,{
-  name_cn: '空间管理',
-  icon: 'icon-coordinates',
+}, {
+  name_cn: '行政管理',
+  icon: 'icon-manage',
   url: 'subnav',
   sub_menus: [{
     name_cn: '待定',
