@@ -15,7 +15,7 @@ export default {
     return {
       chart: null,
       cur_page: 0,
-      info_count: 4,
+      info_count: 3,
       option: {},
     }
   },

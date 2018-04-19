@@ -34,6 +34,7 @@ header {
   background-color: #10406A;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   padding-left: 15px;
 }
 
@@ -53,7 +54,7 @@ ul {
   align-items: center;
   margin: 0 10px 10px 10px;
   background-color: #EAF1F7;
-  color: #4D5265;
+  color: #3c3c3c;
 }
 
 ul:first-child {

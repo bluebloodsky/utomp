@@ -82,7 +82,7 @@ export default {
 
 .right-box {
   position: absolute;
-  left: calc(60% + 10px);
+  left: calc(60% + 3px);
   right: 0;
   top: 0;
   bottom: 0;

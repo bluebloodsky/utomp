@@ -56,6 +56,12 @@ export default {
 
 </script>
 <style scoped>
+header{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 40px;
+}
 ul {
   height: 45px;
   display: flex;

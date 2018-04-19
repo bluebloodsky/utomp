@@ -1,5 +1,5 @@
 <template>
-  <div class="sub-nav">
+  <div class="sub-nav" ref="wrapper" :style="{'padding-left': padding_left + 'px'}">
     <router-link :to="sub_menu.url" v-for="sub_menu in items">
       <i class="iconfont" :class="sub_menu.icon"></i>
       <span>{{sub_menu.name_cn}}</span>
@@ -9,10 +9,20 @@
 <script>
 export default {
   props: ['items'],
+  data() {
+    return {
+      padding_left: 0
+    }
+  },
   mounted() {
     if (!this.items || !this.items.length) {
       this.$router.push({ path: '/home/desktop' })
     }
+
+    this.padding_left = ((this.$refs["wrapper"].clientWidth + 10) % 260) / 2
+    window.addEventListener('resize', () => {
+      this.padding_left = ((this.$refs["wrapper"].clientWidth + 10) % 260) / 2
+    })
   }
 }
 
@@ -31,7 +41,7 @@ a {
   height: 162px;
   line-height: 162px;
   background-color: #0088D2;
-  margin: 10px;
+  margin: 0 10px 10px 0;
   width: 250px;
   text-align: center;
   font-size: 20px;

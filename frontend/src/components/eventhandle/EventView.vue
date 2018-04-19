@@ -156,7 +156,7 @@ export default {
         },
         series: [{
           type: 'pie',
-          radius: ['60%', '80%'],
+          radius: ['50%', '70%'],
           avoidLabelOverlap: false,
           label: {
             normal: {

@@ -35,10 +35,10 @@ export default {
       }]
     }
   },
-  methods:{
-  	nodeClick(node){
+  methods: {
+    nodeClick(node) {
 
-  	}
+    }
   }
 }
 
@@ -67,13 +67,14 @@ export default {
 }
 
 .main-box {
-  width: 84%;
-  margin-right: 2px;
+  width: calc(85% - 4px);
 }
 
 .box>header {
   height: 36px;
   font-size: 16px;
+  padding-left: 5px;
+  line-height: 36px;
   /*color: #64D0F4;*/
 }
 

@@ -1,7 +1,10 @@
 <template>
   <div>
     <header>
-      <h1>综合管廊运维管理平台</h1>
+      <div class="logo">
+        <img src="../assets/logo.png">
+        <h1>综合管廊运维管理平台</h1>
+      </div>
       <nav>
         <ul>
           <li v-for="(menu,index) in nav_menus">
@@ -21,9 +24,9 @@
         </span>
       </div>
     </header>
-   <!--  <transition>
+    <!--  <transition>
       <keep-alive> -->
-        <router-view :items="sub_menus"></router-view>
+    <router-view :items="sub_menus"></router-view>
     <!--   </keep-alive>
     </transition> -->
   </div>
@@ -64,7 +67,7 @@ export default {
 }
 
 </script>
-<style>
+<style scoped>
 header {
   height: 70px;
   display: flex;
@@ -95,6 +98,18 @@ header nav a:hover i.iconfont,
 header nav a i.iconfont {
   color: #8B9DB7;
   font-size: 44px;
+}
+
+.logo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.logo img {
+  display: inline-block;
+  height: 40px;
+  margin-right: 10px;
 }
 
 .right-info {

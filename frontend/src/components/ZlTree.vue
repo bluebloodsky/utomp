@@ -1,17 +1,18 @@
 <template>
-  <ul>
-    <li v-for="item in data">
-      <a @click="nodeClick(item)">
-        <i class="iconfont" :class="item.children?item.expand?'icon-nodeexpand':'icon-nodecollapse':'icon-document'"></i>
-        <span>{{item.label}}</span>
-      </a>
-      <ZlTree :data="item.children" @nodeclick="nodeClick" v-if="item.children&&item.expand"></ZlTree>
-    </li>
-  </ul>
+  <section>
+    <ZlTreeNode :data="data" :currentNode="currentNode" @nodeclick="nodeClick"></ZlTreeNode>
+  </section>
 </template>
 <script>
+import ZlTreeNode from './ZlTreeNode'
 export default {
   name: 'ZlTree',
+  components: { ZlTreeNode },
+  data() {
+    return {
+      currentNode: null
+    }
+  },
   props: {
     data: {
       type: Array,
@@ -20,34 +21,12 @@ export default {
   },
   methods: {
     nodeClick(item) {
-      if (item.children) {
-        this.$set(item, 'expand', item.expand ? false : true)
-      } else {
-        this.$emit('nodeclick', item)
-      }
+      this.currentNode = item
+      this.$emit('nodeclick', item)
     }
   }
 }
 
 </script>
 <style scoped>
-
-i,
-span {
-  font-size: 16px;
-}
-
-li ul {
-  padding: 0 0 0 15px;
-}
-
-a {
-  display: block;
-  padding: 5px;
-}
-
-a:hover {
-  background-color: #5F1003;
-}
-
 </style>

@@ -56,6 +56,12 @@ export default {
   color: #606374;
 }
 
+header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .left-box {
   position: absolute;
   left: 0;
