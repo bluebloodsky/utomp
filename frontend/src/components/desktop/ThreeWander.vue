@@ -13,7 +13,7 @@ export default {
   data() {
     return {
       fov: 45,
-      step: 0.1,
+      step: 100,
       clock: new THREE.Clock,
       renderer: null,
       meshes: [],
@@ -24,8 +24,8 @@ export default {
       width: 0,
       height: 0,
       moveFlg: false,
-      startPoint: [-668, -1690, 1355],
-      endPoint: [-688, 201955, 1355]
+      startPoint: [-668, -1000, 1690],
+      endPoint: [-688, -1000, -185000]
     }
   },
   mounted() {
@@ -178,10 +178,10 @@ export default {
       requestAnimationFrame(this.render)
     },
     changeCameraPosition() {
-      // var diff = [this.endPoint[0] - this.startPoint[0], this.endPoint[1] - this.startPoint[1], this.endPoint[2] - this.startPoint[2]]
-      // this.camera.position.x = this.startPoint[0] + diff[0] * this.locatePercent
-      // this.camera.position.y = this.startPoint[1] + diff[1] * this.locatePercent
-      // this.camera.position.z = this.startPoint[2] + diff[2] * this.locatePercent
+      var diff = [this.endPoint[0] - this.startPoint[0], this.endPoint[1] - this.startPoint[1], this.endPoint[2] - this.startPoint[2]]
+      this.camera.position.x = this.startPoint[0] + diff[0] * this.locatePercent
+      this.camera.position.y = this.startPoint[1] + diff[1] * this.locatePercent
+      this.camera.position.z = this.startPoint[2] + diff[2] * this.locatePercent
     },
     changeFov() {
       this.camera.fov = this.fov
