@@ -10,6 +10,7 @@ import PageGILMonitor from '../pages/PageGILMonitor'
 import PageTaskManage from '../pages/PageTaskManage'
 import PageWireManage from '../pages/PageWireManage'
 import PageEventHandle from '../pages/PageEventHandle'
+import PageEventGis from '../pages/PageEventGis'
 import PageNotFind from '../pages/PageNotFind'
 Vue.use(Router)
 
@@ -49,6 +50,9 @@ const router = new Router({
     }, {
       path: 'wire-manage',
       component: PageWireManage
+    }, {
+      path: 'event-gis',
+      component: PageEventGis
     }, {
       path: 'event-handle',
       component: PageEventHandle

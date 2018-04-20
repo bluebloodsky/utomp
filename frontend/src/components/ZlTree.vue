@@ -1,6 +1,6 @@
 <template>
   <section>
-    <ZlTreeNode :data="data" :currentNode="currentNode" @nodeclick="nodeClick"></ZlTreeNode>
+    <ZlTreeNode :data="data" :currentNode="currentNode" @node-click="onNodeClick"></ZlTreeNode>
   </section>
 </template>
 <script>
@@ -20,9 +20,9 @@ export default {
     }
   },
   methods: {
-    nodeClick(item) {
+    onNodeClick(item) {
       this.currentNode = item
-      this.$emit('nodeclick', item)
+      this.$emit('node-click', item)
     }
   }
 }

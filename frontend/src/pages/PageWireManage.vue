@@ -2,7 +2,7 @@
   <div class="wire-manage">
     <section class="box left-box">
       <header>导航</header>
-      <ZlTree :data="nav" @nodeclick="nodeClick"></ZlTree>
+      <ZlTree :data="nav" @node-click="onNodeClick"></ZlTree>
     </section>
     <section class="box main-box">
       <header>管线类别</header>
@@ -33,7 +33,7 @@ export default {
     }
   },
   methods: {
-    nodeClick(data) {
+    onNodeClick(data) {
       console.log(data)
     }
   }

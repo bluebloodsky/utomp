@@ -3,11 +3,11 @@
     <div class="left-part">
       <section class="box">
         <header>GIS全览</header>
-        <Gis :baseInfos="baseInfos"></Gis>
+        <Gis :baseInfos="baseInfos" :moveFlg="moveFlg" @locate-change = "onLocatechange"></Gis>
       </section>
       <section class="box">
         <header>3D漫游展示</header>
-        <ThreeWander></ThreeWander>
+        <ThreeWander :locatePercent="locatePercent" @move-flg-change="onMoveFlgChange"></ThreeWander>
       </section>
       <section class="box">
         <header>视频监控</header>
@@ -49,7 +49,9 @@ export default {
   data() {
     return {
       baseInfos: [],
-      imgSrcs: []
+      imgSrcs: [],
+      moveFlg: false,
+      locatePercent : 0,
     }
   },
   created() {
@@ -57,6 +59,14 @@ export default {
     for (let i = 1; i < 5; i++) {
       this.imgSrcs.push('http://61.83.161.2:10000/mjpeg.cgi?channel=' + i + '&user=guest&password=guest&time=1524039431169'
        )
+    }
+  },
+  methods:{
+    onLocatechange(val){
+      this.locatePercent = val
+    },
+    onMoveFlgChange(val){
+      this.moveFlg = val
     }
   }
 }

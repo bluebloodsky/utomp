@@ -2,7 +2,7 @@
   <section class="body-monitor">
     <section class="box left-box">
       <header>导航</header>
-      <ZlTree :data="nav" @nodeclick="nodeClick"></ZlTree>
+      <ZlTree :data="nav" @node-click="onNodeClick"></ZlTree>
     </section>
     <section class="box main-box">
       <img src="../assets/body.png" width="100%" height="100%">
@@ -36,7 +36,7 @@ export default {
     }
   },
   methods: {
-    nodeClick(node) {
+    onNodeClick(node) {
 
     }
   }

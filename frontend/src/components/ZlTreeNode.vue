@@ -1,11 +1,11 @@
 <template>
   <ul>
     <li v-for="item in data">
-      <a @click="nodeClick(item)" :class="{selected:item==currentNode}">
+      <a @click="onNodeClick(item)" :class="{selected:item==currentNode}">
         <i class="iconfont" :class="item.children?!item.collapse?'icon-nodeexpand':'icon-nodecollapse':'icon-document'"></i>
         <span>{{item.label}}</span>
       </a>
-      <ZlTreeNode :data="item.children" :currentNode="currentNode" @nodeclick="nodeClick" v-if="item.children&&!item.collapse"></ZlTreeNode>
+      <ZlTreeNode :data="item.children" :currentNode="currentNode" @node-click="onNodeClick" v-if="item.children&&!item.collapse"></ZlTreeNode>
     </li>
   </ul>
 </template>
@@ -22,11 +22,11 @@ export default {
     }
   },
   methods: {
-    nodeClick(item) {
+    onNodeClick(item) {
       if (item.children) {
         this.$set(item, 'collapse', item.collapse ? false : true)
       } else {
-        this.$emit('nodeclick', item)
+        this.$emit('node-click', item)
       }
     }
   }

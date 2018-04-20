@@ -9,11 +9,11 @@
 </template>
 <script>
 export default {
+  props: ['locatePercent'],
   data() {
     return {
       fov: 45,
       step: 0.1,
-      moveFlg: false,
       clock: new THREE.Clock,
       renderer: null,
       meshes: [],
@@ -22,7 +22,10 @@ export default {
       scene: null,
       stats: null,
       width: 0,
-      height: 0
+      height: 0,
+      moveFlg: false,
+      startPoint: [-668, -1690, 1355],
+      endPoint: [-688, 201955, 1355]
     }
   },
   mounted() {
@@ -41,6 +44,11 @@ export default {
     })
 
     window.addEventListener("keypress", this.keypress)
+  },
+  watch: {
+    moveFlg(newVal) {
+      this.$emit('move-flg-change', newVal)
+    }
   },
   methods: {
     fullScreen(e) {
@@ -93,7 +101,7 @@ export default {
     },
     loadModel() {
       var loader = new THREE.JDLoader()
-      loader.load("../../../static/model/kd.jd", data => {
+      loader.load("../../../static/model/tunnel.jd", data => {
         for (var i = 0; i < data.objects.length; ++i) {
           if (data.objects[i].type == "Mesh" || data.objects[i].type == "SkinnedMesh") {
             var mesh = null;
@@ -132,16 +140,18 @@ export default {
         var near = 1,
           far = 4 * data.boundingSphere.radius;
         this.camera = new THREE.PerspectiveCamera(this.fov, this.width / this.height, near, far);
+        
         // this.camera.position.x = data.boundingSphere.center.x +  data.boundingSphere.radius 
         // this.camera.position.y = data.boundingSphere.center.y 
         // this.camera.position.z = data.boundingSphere.center.z
         // this.camera.lookAt(data.boundingSphere.center);
 
-        this.camera.position.set(432.73, -68.743, -1417.162)
-        this.camera.lookAt(255.66, -68.743, -1417.162)
+        this.camera.position.set(this.startPoint[0], this.startPoint[1], this.startPoint[2])
+        this.camera.lookAt(this.endPoint[0], this.endPoint[1], this.endPoint[2])
+        
         this.camera.add(new THREE.DirectionalLight(0xFFFFFF, 1))
         this.scene.add(this.camera)
-        this.moveFlg = true
+        // this.moveFlg = true
       })
     },
     createMaterials(data) {
@@ -160,21 +170,18 @@ export default {
         this.mixers[i].update(delta);
       if (this.camera) {
         this.changeFov()
-        if (this.moveFlg) {
-          this.changeCameraPosition()
-        }
+        // if (this.moveFlg) {
+        this.changeCameraPosition()
+        // }
         this.renderer.render(this.scene, this.camera)
       }
       requestAnimationFrame(this.render)
     },
     changeCameraPosition() {
-      if (this.camera.position.x < 255) {
-        this.camera.position.x = 435
-      }
-      this.camera.translateZ(-this.step)
-      // if (this.camera.position.z < -396) {
-      //   this.camera.position.z = 404
-      // }
+      // var diff = [this.endPoint[0] - this.startPoint[0], this.endPoint[1] - this.startPoint[1], this.endPoint[2] - this.startPoint[2]]
+      // this.camera.position.x = this.startPoint[0] + diff[0] * this.locatePercent
+      // this.camera.position.y = this.startPoint[1] + diff[1] * this.locatePercent
+      // this.camera.position.z = this.startPoint[2] + diff[2] * this.locatePercent
     },
     changeFov() {
       this.camera.fov = this.fov

@@ -8,7 +8,7 @@
       <nav>
         <ul>
           <li v-for="(menu,index) in nav_menus">
-            <a :class="{selected:index==currentMenuIndex}" @click="navClick(menu,index)">
+            <a :class="{selected:index==currentMenuIndex}" @click="onNavClick(menu,index)">
             <i class="iconfont" :class="menu.icon"></i>
             <br/>{{menu.name_cn}}
           </a>
@@ -58,7 +58,7 @@ export default {
     }
   },
   methods: {
-    navClick(menu, index) {
+    onNavClick(menu, index) {
       this.sub_menus = menu.sub_menus
       this.$router.push(menu.url)
       this.currentMenuIndex = index

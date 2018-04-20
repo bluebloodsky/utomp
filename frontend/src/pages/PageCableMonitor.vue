@@ -2,7 +2,7 @@
   <div class="cable-monitor">
     <section class="box left-box">
       <header>导航</header>
-      <ZlTree :data="nav" @nodeclick="nodeClick"></ZlTree>
+      <ZlTree :data="nav" @node-click="onNodeClick"></ZlTree>
     </section>
     <section class="box tab-box">
       <header>
@@ -74,7 +74,7 @@ export default {
     })
   },
   methods:{
-    nodeClick(item){
+    onNodeClick(item){
       
     }
   }
