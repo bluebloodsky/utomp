@@ -147,43 +147,31 @@ export default {
 .state-box ul {
   width: calc(100% -70px);
   background-color: #DAEAF7;
-  height: 5px;
+  height: 3px;
   margin-left: 70px;
   border-radius: 3px;
-  border: 1px solid #CED4DF;
+  /*border: 1px solid #CED4DF;*/
   display: flex;
   justify-content: space-around;
 }
 
+.state-box:before {
+  position: absolute;
+  top: -50%;
+  transform: translateY(50%);
+  left: 30px;
+  color: #3C3C3C;
+}
 .state-box:nth-child(3n + 1):before {
   content: 'A相';
-  position: absolute;
-  top: -10px;
-  bottom: 0;
-  left: 30px;
-  height: 30px;
-  line-height: 30px;
-  color: #3C3C3C;
 }
 
 .state-box:nth-child(3n + 2):before {
   content: 'B相';
-  position: absolute;
-  top: -10px;
-  left: 30px;
-  height: 30px;
-  line-height: 30px;
-  color: #3C3C3C;
 }
 
 .state-box:nth-child(3n):before {
   content: 'C相';
-  position: absolute;
-  top: -10px;
-  left: 30px;
-  height: 30px;
-  line-height: 30px;
-  color: #3C3C3C;
 }
 
 .state-box:nth-child(3n) {
@@ -227,7 +215,6 @@ export default {
 }
 
 .state-box li span{
-  display: block;
   position: absolute;
   top: -50px;
   left: 50%;
@@ -240,12 +227,12 @@ export default {
 }
 
 .bad {
-  color: #28A646;
+  color: #C55C60;
   font-size: 14px;
 }
 
 .warn {
-  color: #28A646;
+  color: #FEE179;
   font-size: 14px;
 }
 

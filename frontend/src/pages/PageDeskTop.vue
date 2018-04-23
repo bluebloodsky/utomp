@@ -130,15 +130,15 @@ export default {
 }
 
 .right-part .box:nth-child(1) {
-  height: calc(30% - 5px);
+  height: 230px;
 }
 
 .right-part .box:nth-child(2) {
-  height: calc(40% - 5px);
+  height: calc(50% - 100px);
 }
 
 .right-part .box:nth-child(3) {
-  height: calc(30% - 5px);
+  height: calc(50% - 150px);
 }
 
 .box>header {

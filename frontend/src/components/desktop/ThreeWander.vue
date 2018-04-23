@@ -5,7 +5,7 @@
     <input type="radio" name="cabin" v-model="cabin" value="-1">高压电缆舱
     <input type="radio" name="cabin" v-model="cabin" value="0">GIL舱
     <input type="radio" name="cabin" v-model="cabin" value="1">综合舱
-    <div ref="canvas"></div>
+    <div ref="canvas" class="main-box" :class="{'full-screen' : fullFlg}"></div>
     <section ref="stats" v-show="false"></section>
   </section>
 </template>
@@ -72,11 +72,17 @@ export default {
   methods: {
     fullScreen(e) {
       this.fullFlg = this.fullFlg ? false : true
-      if (this.fullFlg) {
-        e.target.webkitRequestFullscreen()
-      } else {
+      this.$nextTick(() => {
+        let canvas = this.$refs['canvas']
+        this.width = canvas.clientWidth
+        this.height = canvas.clientHeight
+        this.renderer.setSize(this.width, this.height)
+      })
+      // if (this.fullFlg) {
+      //   e.target.webkitRequestFullscreen()
+      // } else {
 
-      }
+      // }
     },
     initThree() {
       let canvas = this.$refs['canvas']
@@ -95,7 +101,7 @@ export default {
 
       this.renderer.domElement.addEventListener("dblclick", this.fullScreen)
       canvas.appendChild(this.renderer.domElement)
-      // this.renderer.setClearColor(0xFFFFFF, 1.0)
+      this.renderer.setClearColor(0x1A1011, 1.0)
     },
     initStats() {
       this.stats = new Stats()
@@ -244,13 +250,23 @@ export default {
 
 </script>
 <style scoped>
-div {
+.main-box {
   position: absolute;
   top: 30px;
   left: 0;
   right: 0;
   bottom: 0;
   overflow: hidden;
+  cursor: pointer;
+}
+
+.full-screen {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 9999;
 }
 
 </style>
