@@ -1,13 +1,16 @@
 <template>
   <section>
-    FOV:
-    <input v-model.number="fov">(0~180)
     <input type="checkbox" v-model="moveFlg">漫游
+    <input v-model="diff">
+    <input type="radio" name="cabin" v-model="cabin" value="-1">高压电缆舱
+    <input type="radio" name="cabin" v-model="cabin" value="0">GIL舱
+    <input type="radio" name="cabin" v-model="cabin" value="1">综合舱
     <div ref="canvas"></div>
     <section ref="stats" v-show="false"></section>
   </section>
 </template>
 <script>
+import modelData from '../../json/model'
 export default {
   props: ['locatePercent'],
   data() {
@@ -24,11 +27,19 @@ export default {
       width: 0,
       height: 0,
       moveFlg: false,
-      startPoint: [-668, -1000, 1690],
-      endPoint: [-688, -1000, -185000]
+      startPoint: [-688, -1000, 1690],
+      endPoint: [-688, -1200, -185000],
+      diff: 3500,
+      cabin: 0,
+      fullFlg: false,
+      url: ''
     }
   },
   mounted() {
+    this.step = modelData.step
+    this.startPoint = modelData.startPoint
+    this.endPoint = modelData.endPoint
+    this.url = "../../../static/model/" + modelData.url
     this.initThree()
     this.initScene()
     this.initStats()
@@ -48,11 +59,24 @@ export default {
   watch: {
     moveFlg(newVal) {
       this.$emit('move-flg-change', newVal)
+    },
+    locatePercent(newVal) {
+      if (this.camera) {
+        var diff = [this.endPoint[0] - this.startPoint[0], this.endPoint[1] - this.startPoint[1], this.endPoint[2] - this.startPoint[2]]
+        this.camera.position.x = this.startPoint[0] + diff[0] * this.locatePercent + this.diff * parseInt(this.cabin)
+        this.camera.position.y = this.startPoint[1] + diff[1] * this.locatePercent
+        this.camera.position.z = this.startPoint[2] + diff[2] * this.locatePercent
+      }
     }
   },
   methods: {
     fullScreen(e) {
-      e.target.webkitRequestFullscreen()
+      this.fullFlg = this.fullFlg ? false : true
+      if (this.fullFlg) {
+        e.target.webkitRequestFullscreen()
+      } else {
+
+      }
     },
     initThree() {
       let canvas = this.$refs['canvas']
@@ -82,13 +106,12 @@ export default {
     initScene() {
       this.scene = new THREE.Scene()
       // this.scene.fog = new THREE.Fog(0xFFFFFF, 0.015, 100)
-      var axes = new THREE.AxisHelper(200000)
-      this.scene.add(axes)
+      // var axes = new THREE.AxisHelper(200000)
+      // this.scene.add(axes)
     },
     initCamera() {
       this.camera = new THREE.PerspectiveCamera(this.fov, this.width / this.height, 1, 100)
       this.camera.position.set(2, 2, 402)
-
 
       // let c = this.camera
       // let helper = new THREE.CameraHelper(c);
@@ -101,15 +124,14 @@ export default {
     },
     loadModel() {
       var loader = new THREE.JDLoader()
-      loader.load("../../../static/model/tunnel.jd", data => {
+      loader.load(this.url, data => {
         for (var i = 0; i < data.objects.length; ++i) {
           if (data.objects[i].type == "Mesh" || data.objects[i].type == "SkinnedMesh") {
             var mesh = null;
             var matArray = this.createMaterials(data);
             if (data.objects[i].type == "SkinnedMesh") {
               mesh = new THREE.SkinnedMesh(data.objects[i].geometry, matArray);
-            } else // Mesh
-            {
+            } else {
               mesh = new THREE.Mesh(data.objects[i].geometry, matArray);
             }
             this.meshes.push(mesh);
@@ -140,7 +162,7 @@ export default {
         var near = 1,
           far = 4 * data.boundingSphere.radius;
         this.camera = new THREE.PerspectiveCamera(this.fov, this.width / this.height, near, far);
-        
+
         // this.camera.position.x = data.boundingSphere.center.x +  data.boundingSphere.radius 
         // this.camera.position.y = data.boundingSphere.center.y 
         // this.camera.position.z = data.boundingSphere.center.z
@@ -148,10 +170,10 @@ export default {
 
         this.camera.position.set(this.startPoint[0], this.startPoint[1], this.startPoint[2])
         this.camera.lookAt(this.endPoint[0], this.endPoint[1], this.endPoint[2])
-        
+
         this.camera.add(new THREE.DirectionalLight(0xFFFFFF, 1))
         this.scene.add(this.camera)
-        // this.moveFlg = true
+        this.moveFlg = true
       })
     },
     createMaterials(data) {
@@ -159,7 +181,7 @@ export default {
       for (var j = 0; j < data.materials.length; ++j) {
         var mat = new THREE.MeshPhongMaterial({});
         mat.copy(data.materials[j]);
-        //mat.transparent = true;
+        mat.transparent = true;
         matArray.push(mat);
       }
       return matArray;
@@ -171,7 +193,7 @@ export default {
       if (this.camera) {
         this.changeFov()
         // if (this.moveFlg) {
-        this.changeCameraPosition()
+        // this.changeCameraPosition()
         // }
         this.renderer.render(this.scene, this.camera)
       }

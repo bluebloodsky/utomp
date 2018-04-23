@@ -20,13 +20,12 @@ export default {
       let x = (k * s[0] - s[1] + p[0] / k + p[1]) / (k + 1 / k)
       let y = k * (x - s[0]) + s[1]
 
-      if ((x - p[0]) * (x - p[0]) + (y - p[1]) * (y - p[1]) < 0.00002) {
+      if ((e[0]-x)*(s[0]-x) < 0 &&
+        ((x - p[0]) * (x - p[0]) + (y - p[1]) * (y - p[1]) < 0.000004)) {
         return [x, y]
       } else {
         return []
       }
-      // let stand_lng = s[0] + (e[0] - s[0]) * (p[1] - s[1]) / (e[1] - s[1]) //同一经度的维度
-      // return Math.abs(p[0] - stand_lng) < 0.006
     }
   },
   watch: {
@@ -65,7 +64,7 @@ export default {
         var sp = this.inLine([e.point.lng, e.point.lat], this.startPoint, this.endPoint)
         if (sp.length) {
           this.locatePercent =
-            (sp[1] - this.startPoint[1]) / (this.endPoint[1] - this.startPoint[1]) 
+            (sp[1] - this.startPoint[1]) / (this.endPoint[1] - this.startPoint[1])
         }
       })
       this.map.addOverlay(polyline);
