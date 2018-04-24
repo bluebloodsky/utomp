@@ -1,10 +1,12 @@
 <template>
   <section>
-    <input type="checkbox" v-model="moveFlg">漫游
-    <input v-model="diff">
-    <input type="radio" name="cabin" v-model="cabin" value="-1">高压电缆舱
-    <input type="radio" name="cabin" v-model="cabin" value="0">GIL舱
-    <input type="radio" name="cabin" v-model="cabin" value="1">综合舱
+    <div class="control">
+      <input type="checkbox" v-model="moveFlg">漫游
+      <!-- <input v-model="diff"> -->
+      <input type="radio" name="cabin" v-model="cabin" value="-1">高压电缆舱
+      <input type="radio" name="cabin" v-model="cabin" value="0">GIL舱
+      <input type="radio" name="cabin" v-model="cabin" value="1">综合舱
+    </div>
     <div ref="canvas" class="main-box" :class="{'full-screen' : fullFlg}"></div>
     <section ref="stats" v-show="false"></section>
   </section>
@@ -223,6 +225,9 @@ export default {
       }
     },
     keypress(e) {
+      if (e.code == "KeyEsc") {
+        this.fullScreen(e)
+      }
       if (e.code == "KeyA") {
         this.camera.translateX(-this.step)
       } else if (e.code == "KeyD") {
@@ -250,6 +255,9 @@ export default {
 
 </script>
 <style scoped>
+.control{
+  padding-left: 10px;
+}
 .main-box {
   position: absolute;
   top: 30px;

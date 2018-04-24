@@ -11,6 +11,7 @@ import PageTaskManage from '../pages/PageTaskManage'
 import PageWireManage from '../pages/PageWireManage'
 import PageEventHandle from '../pages/PageEventHandle'
 import PageEventGis from '../pages/PageEventGis'
+import PageFireHandle from '../pages/PageFireHandle'
 import PageNotFind from '../pages/PageNotFind'
 Vue.use(Router)
 
@@ -56,6 +57,9 @@ const router = new Router({
     }, {
       path: 'event-handle',
       component: PageEventHandle
+    }, {
+      path: 'fire-handle',
+      component: PageFireHandle
     }]
   }]
 })

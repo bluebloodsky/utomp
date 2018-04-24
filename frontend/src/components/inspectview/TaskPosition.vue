@@ -8,7 +8,7 @@
       </div>
       <div>
         <input>
-        <button>高级筛选</button>
+        <button><i class="iconfont icon-search"></i></button>
       </div>
     </header>
     <section>
@@ -71,6 +71,7 @@ section>section {
   right: 0;
   overflow-y: auto;
 }
+
 
 
 /*table {

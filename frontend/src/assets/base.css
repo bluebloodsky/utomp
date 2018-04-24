@@ -42,8 +42,8 @@ input,button{
 }
 header button{
   background-color: #228E9A;
-  padding: 3px 15px;
-  border-radius: 10px;
+  padding: 3px 10px;
+  border-radius: 3px;
   border:1px solid #84CCDA;
   color:#fff;
 }
@@ -68,6 +68,22 @@ button[type="text"]{
 button[type="text"]:hover{
   opacity: 0.5;
 }
+
+.good {
+  color: #28A646;
+  font-size: 14px;
+}
+
+.bad {
+  color: #C55C60;
+  font-size: 14px;
+}
+
+.warn {
+  color: #FEE179;
+  font-size: 14px;
+}
+
 
 /*去掉百度地图logo*/
 .BMap_cpyCtrl {

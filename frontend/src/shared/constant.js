@@ -98,7 +98,7 @@ export const NAV_MENUS = [{
     url: 'setting-manage'
   }]
 }, {
-  name_cn: '应急处置',
+  name_cn: '应急指挥',
   icon: 'icon-remind',
   url: 'subnav',
   sub_menus: [{
@@ -112,7 +112,7 @@ export const NAV_MENUS = [{
   }, {
     name_cn: '火灾预案',
     icon: 'icon-fire',
-    url: 'unknown',
+    url: 'fire-handle',
   }, {
     name_cn: '入侵应急动画',
     icon: 'icon-video',

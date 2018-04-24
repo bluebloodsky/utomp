@@ -6,47 +6,41 @@
     </section>
     <section class="box tab-box">
       <header>
-        <a class="selected"><span>管线1</span></a>
-        <a><span>管线2</span></a>
-        <a><span>管线3</span></a>
+        <ul>
+          <li v-for="(item,index) in cableData">
+            <a :class="{selected : index == currentPage}" @click="currentPage=index"><span>{{item.label}}</span></a>
+          </li>
+        </ul>
       </header>
       <section ref="wrapper" :style="{'padding-left': padding_left + 'px'}">
-        <section class="content-box" v-for="i in 10">
-          <header>
-            光谷一路#1段#1节
-          </header>
-          <section>
-            <ul>
-              <li>
-                <span>电缆运行电流：</span>
-                <span><strong>100</strong>mA</span>
-              </li>
-              <li>
-                <span>电缆护层接地电流：</span>
-                <span><strong>100</strong>mA</span>
-              </li>
-              <li>
-                <span>电缆外壳温度：</span>
-                <span><strong>100</strong>℃</span>
-              </li>
-              <li>
-                <span>电缆局部放电：</span>
-                <span><strong>100</strong>pC</span>
-              </li>
-            </ul>
+        <template v-if="cableData && cableData.length > 0">
+          <section class="content-box" v-for="item in cableData[currentPage].items">
+            <header>
+              {{item.label}}
+            </header>
+            <section>
+              <ul>
+                <li v-for="data in item.data">
+                  <span>{{data.label}}：</span>
+                  <span><strong>{{data.val}}</strong>{{data.unit}}</span>
+                </li>
+              </ul>
+            </section>
           </section>
-        </section>
+        </template>
       </section>
     </section>
   </div>
 </template>
 <script>
 import ZlTree from '../components/ZlTree'
+import {cableData} from '../json/cable'
 export default {
   components: { ZlTree },
   data() {
     return {
       padding_left: 0,
+      currentPage: 0,
       nav: [{
         label: '东湖高新区',
         children: [{
@@ -64,18 +58,24 @@ export default {
             label: '2#廊段'
           }]
         }]
-      }]
+      }],
+      cableData: []
     }
   },
   mounted() {
+    this.cableData = cableData
     this.padding_left = ((this.$refs["wrapper"].clientWidth + 5) % 235) / 2
     window.addEventListener('resize', () => {
       this.padding_left = ((this.$refs["wrapper"].clientWidth + 5) % 235) / 2
     })
   },
-  methods:{
-    onNodeClick(item){
-      
+  computed: {
+
+  },
+  methods: {
+    onNodeClick(item) {
+      this.cableData = require('../json/cable').cableData
+      this.currentPage = 0
     }
   }
 }
@@ -122,6 +122,9 @@ export default {
 
 
 
+
+
+
 /*.tab-box>header a {
   height: 100%;
   display: inline-block;
@@ -136,6 +139,10 @@ export default {
   color:#3C3C3C;
 }
 */
+
+.tab-box>header li {
+  float: left;
+}
 
 .tab-box>header a {
   position: relative;
