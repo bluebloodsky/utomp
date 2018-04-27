@@ -3,9 +3,9 @@
     <div class="control">
       <input type="checkbox" v-model="moveFlg">漫游
       <!-- <input v-model="diff"> -->
-      <input type="radio" name="cabin" v-model="cabin" value="-1">高压电缆舱
-      <input type="radio" name="cabin" v-model="cabin" value="0">GIL舱
-      <input type="radio" name="cabin" v-model="cabin" value="1">综合舱
+      <input type="radio" name="cabin" v-model="cabin" value="0">高压电缆舱
+      <input type="radio" name="cabin" v-model="cabin" value="1">GIL舱
+      <input type="radio" name="cabin" v-model="cabin" value="2">综合舱
     </div>
     <div ref="canvas" class="main-box" :class="{'full-screen' : fullFlg}"></div>
     <section ref="stats" v-show="false"></section>
@@ -31,8 +31,8 @@ export default {
       moveFlg: false,
       startPoint: [-688, -1000, 1690],
       endPoint: [-688, -1200, -185000],
-      diff: 3500,
-      cabin: 0,
+      diffs: [-3600, 0, 3600],
+      cabin: 1,
       fullFlg: false,
       url: ''
     }
@@ -42,6 +42,7 @@ export default {
     this.startPoint = modelData.startPoint
     this.endPoint = modelData.endPoint
     this.url = "../../../static/model/" + modelData.url
+    this.diffs = modelData.diffs
     this.initThree()
     this.initScene()
     this.initStats()
@@ -65,7 +66,7 @@ export default {
     locatePercent(newVal) {
       if (this.camera) {
         var diff = [this.endPoint[0] - this.startPoint[0], this.endPoint[1] - this.startPoint[1], this.endPoint[2] - this.startPoint[2]]
-        this.camera.position.x = this.startPoint[0] + diff[0] * this.locatePercent + this.diff * parseInt(this.cabin)
+        this.camera.position.x = this.startPoint[0] + diff[0] * this.locatePercent + this.diffs[this.cabin]
         this.camera.position.y = this.startPoint[1] + diff[1] * this.locatePercent
         this.camera.position.z = this.startPoint[2] + diff[2] * this.locatePercent
       }
@@ -255,9 +256,10 @@ export default {
 
 </script>
 <style scoped>
-.control{
+.control {
   padding-left: 10px;
 }
+
 .main-box {
   position: absolute;
   top: 30px;

@@ -101,27 +101,37 @@ export const NAV_MENUS = [{
   name_cn: '应急指挥',
   icon: 'icon-remind',
   url: 'subnav',
-  sub_menus: [{
-    name_cn: '风险分析',
-    icon: 'icon-flip',
-    url: 'unknown',
-  }, {
-    name_cn: '火灾应急动画',
-    icon: 'icon-live',
-    url: 'unknown',
-  }, {
-    name_cn: '火灾预案',
+  // sub_menus: [{
+  //   name_cn: '风险分析',
+  //   icon: 'icon-flip',
+  //   url: 'unknown',
+  // }, {
+  //   name_cn: '火灾应急动画',
+  //   icon: 'icon-live',
+  //   url: 'unknown',
+  // }, {
+  //   name_cn: '火灾预案',
+  //   icon: 'icon-fire',
+  //   url: 'fire-handle',
+  // }, {
+  //   name_cn: '入侵应急动画',
+  //   icon: 'icon-video',
+  //   url: 'unknown',
+  // }, {
+  //   name_cn: '入侵预案',
+  //   icon: 'icon-login-variant',
+  //   url: 'unknown',
+  // }],
+  sub_menus: [{   
+    name_cn: '管外应急指挥',
     icon: 'icon-fire',
     url: 'fire-handle',
   }, {
-    name_cn: '入侵应急动画',
-    icon: 'icon-video',
-    url: 'unknown',
-  }, {
-    name_cn: '入侵预案',
+    name_cn: '管内应急指挥',
     icon: 'icon-login-variant',
-    url: 'unknown',
+    url: 'in-command',
   }]
+
 }, {
   name_cn: '辅助决策',
   icon: 'icon-offline',

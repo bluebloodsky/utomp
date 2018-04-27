@@ -40,9 +40,12 @@ body {
 input,button{
   outline: none;
 }
+button{  
+  padding: 3px 10px;
+  border-radius: 5px;
+}
 header button{
   background-color: #228E9A;
-  padding: 3px 10px;
   border-radius: 3px;
   border:1px solid #84CCDA;
   color:#fff;

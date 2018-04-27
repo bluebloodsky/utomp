@@ -2,7 +2,7 @@
   <div class="fire-handle">
     <div class="box left-box">
       <section>
-        <header>应急专家</header>
+        <header>入廊人员</header>
         <section>
           <ul v-for=" person in persons">
             <li>{{person.name}}</li>
@@ -11,7 +11,7 @@
         </section>
       </section>
       <section>
-        <header>应急预案</header>
+        <header>应急规范操作</header>
         <section>
           <ul v-for="(plan,i) in plans">
             <li>{{i+1}}.{{plan}}</li>
@@ -51,8 +51,7 @@
             <span>浸水</span>
           </a>
         </header>
-        <FireGis>
-        </FireGis>
+        <section></section>
       </section>
       <section>
         <img src="http://61.83.161.2:10000/mjpeg.cgi?channel=1&user=guest&password=guest&time=1524039431169" @dblclick="fullScreen">
@@ -63,60 +62,67 @@
     </div>
     <div class="box bottom-box">
       <section>
-        <header>110报警中心</header>
+        <header>风机状态监控</header>
         <section>
-          <i class="iconfont icon-jingche"></i>
-          <div>
-            <p>
-              通话状态：<span>等待接通</span>
-            </p>
-            <p>
-              信息报告：当前无信息动态
-            </p>
+          <div class="pic-text">
+            <i class="iconfont icon-fan"></i>
+            <ul>
+              <li>运行状态：
+                <input type="" name="" value="关闭">
+              </li>
+              <li>运行模式：
+                <input type="" name="" value="远程">
+              </li>
+              <li>供电状态：
+                <input type="" name="" value="正常">
+              </li>
+            </ul>
+          </div>
+          <div class="btns">
+            <button>开始</button>
+            <button>关闭</button>
           </div>
         </section>
       </section>
       <section>
-        <header>119报警中心</header>
+        <header>井盖状态监控</header>
         <section>
-          <i class="iconfont icon-xiaofangche"></i>
-          <div>
-            <p>
-              通话状态：<span>等待接通</span>
-            </p>
-            <p>
-              信息报告：当前无信息动态
-            </p>
+          <div class="pic-text">
+            <i class="iconfont icon-manhole-cover"></i>
+            <ul>
+              <li>运行状态：
+                <input type="" name="" value="关闭">
+              </li>
+              <li>运行模式：
+                <input type="" name="" value="远程">
+              </li>
+              <li>供电状态：
+                <input type="" name="" value="正常">
+              </li>
+            </ul>
+          </div>
+          <div class="btns">
+            <button>开始</button>
+            <button>关闭</button>
           </div>
         </section>
       </section>
       <section>
-        <header>120报警中心</header>
+        <header>预警广播</header>
         <section>
-          <i class="iconfont icon-jiuhuche"></i>
-          <div>
-            <p>
-              通话状态：<span>等待接通</span>
-            </p>
-            <p>
-              信息报告：当前无信息动态
-            </p>
+          <div class="pic-text">
+            <i class="iconfont icon-systemprompt"></i> <span>当前无动态信息</span>
           </div>
         </section>
       </section>
       <section>
-        <header>管廊单位</header>
+        <header>提示牌</header>
         <section>
-          <i class="iconfont icon-car"></i>
-          <div>
-            <p>
-              通话状态：<span>等待接通</span>
-            </p>
-            <p>
-              信息报告：当前无信息动态
-            </p>
+          <div class="pic-text">
+            <i class="iconfont icon-bulletinboard"></i> <span> 当前无动态信息</span>
           </div>
         </section>
+      </section>
       </section>
     </div>
   </div>
@@ -129,12 +135,12 @@ export default {
   data() {
     return {
       persons: [],
-      plans: []
+      plans:[]
     }
   },
   mounted() {
-    this.persons = commandInfo.experts
-    this.plans = commandInfo.out_plans
+    this.persons = commandInfo.persons
+    this.plans = commandInfo.in_plans
   },
   methods: {
     fullScreen(e) {
@@ -177,22 +183,6 @@ section>section {
   right: 0;
 }
 
-section>ul {
-  width: 100%;
-  height: 32px;
-  line-height: 32px;
-}
-
-section ul:nth-child(even) {
-  background-color: #306C95;
-}
-
-li {
-  float: left;
-  width: 50%;
-  text-align: center;
-}
-
 .left-box {
   position: absolute;
   top: 20px;
@@ -229,8 +219,12 @@ li {
 }
 
 .left-box li {
-  width: 40%;
+  width: 40%;  
   text-align: left;
+}
+
+.left-box ul:nth-child(even) {
+  background-color: #306C95;
 }
 
 
@@ -271,6 +265,7 @@ li {
   justify-content: space-around;
 }
 
+
 .bottom-box>section {
   width: calc(25% - 5px);
   height: 100%;
@@ -278,17 +273,28 @@ li {
 
 .bottom-box>section>section {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: space-around;
 }
 
-.bottom-box p {
-  margin-bottom: 10px;
-  font-size: 12px;
+.pic-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.bottom-box p span {
-  color: #ff0;
+.pic-text li {
+  margin-bottom: 5px;
+}
+
+.pic-text input {
+  width: calc(100% - 80px);
+}
+
+.btns {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .bottom-box .iconfont {

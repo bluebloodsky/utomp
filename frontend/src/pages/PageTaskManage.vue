@@ -3,8 +3,10 @@
     <section class="box left-box">
       <header>
         <input>
-        <button>高级筛选</button>
-        <button>新建任务</button>
+        <div>
+          <button><i class="iconfont icon-search"></i></button>
+          <button><i class="iconfont icon-add"></i></button>
+        </div>
       </header>
       <section>
         <ul>
@@ -53,13 +55,14 @@ export default {
   right: 0;
   bottom: 0;
   overflow: hidden;
-  color: #606374;
 }
 
 header {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  background-color: #10406A;
+  height: 60px;
 }
 
 .left-box {
@@ -72,13 +75,8 @@ header {
   background-color: #C6CFD8;
 }
 
-.left-box header {
-  height: 60px;
-  background-color: #C1C9D6;
-}
-
 .left-box header input {
-  width: calc(100% - 220px);
+  width: calc(100% - 150px);
   height: 22px;
   background-color: #f0f0f0;
   border: 2px solid #B8C2CC;
@@ -111,7 +109,7 @@ header {
 
 .right-box {
   position: absolute;
-  left: 30%;
+  left: calc(30% + 5px);
   right: 0;
   top: 0;
   bottom: 0;
@@ -120,7 +118,6 @@ header {
 
 .right-box>header {
   height: 60px;
-  background-color: #B6B9C8;
 }
 
 .right-box>header span {
@@ -130,10 +127,12 @@ header {
 .right-box>header strong {
   color: #8C6A60;
 }
-.right-box>section{
-	margin:15px 10px;
-	background-color: #C7CBD4;
-	padding: 15px;
-	font-size: 18px;
+
+.right-box>section {
+  margin: 15px 10px;
+  background-color: #C7CBD4;
+  padding: 15px;
+  font-size: 18px;
 }
+
 </style>

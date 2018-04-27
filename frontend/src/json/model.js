@@ -7,9 +7,10 @@ const kd = {
 
 const tunnel = {
   url: "tunnel.jd",
-  startPoint: [-688, -1000, 1690],
-  endPoint: [-688, -1200, -185000],
+  startPoint: [-500, 0, 7500],
+  endPoint: [-500, 0, -185000],
+  diffs:[-3600,0,3800],
   step: 100
 }
 
-export default kd
+export default tunnel
