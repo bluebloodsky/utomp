@@ -25,7 +25,8 @@ export default {
       nav: [{
         label: '东湖高新区',
         children: [{
-          label: '光谷一路'
+          label: '光谷一路',
+          defaultSelected: true
         }, {
           label: '光谷二路'
         }]

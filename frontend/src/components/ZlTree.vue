@@ -19,14 +19,32 @@ export default {
       default: []
     }
   },
+  mounted() {
+    this.currentNode = this.findDefaultNode(this.data)
+  },
   methods: {
     onNodeClick(item) {
       this.currentNode = item
       this.$emit('node-click', item)
+    },
+    findDefaultNode(nodes) {
+      for(let node of nodes){
+        if (node.defaultSelected) {
+          return node
+        } else if (node.children) {
+          let ret = this.findDefaultNode(node.children)
+          if (ret) {
+            return ret
+          }
+        }
+      }
+      return null
     }
   }
 }
 
 </script>
 <style scoped>
+
+
 </style>

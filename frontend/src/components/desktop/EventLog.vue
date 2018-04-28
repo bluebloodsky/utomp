@@ -2,7 +2,7 @@
   <section ref="wrapper">
     <ul ref="content" :style="{top:top + 'px'}">
       <li v-for="event in events" :class="event.event_level">
-        {{event.event_time}} {{event.location}} | {{event.event_desc}}
+        <a @click="selectEvent(event)">{{event.event_time}} {{event.location}} | {{event.event_desc}}</a>
       </li>
     </ul>
   </section>
@@ -31,6 +31,11 @@ export default {
       return _events.sort((a, b) => a.event_time > b.event_time ? 1 : -1)
     }
   },
+  methods: {
+    selectEvent(event) {
+      this.$router.push('event-handle')
+    }
+  },
   mounted() {
     var wrapperHeight = this.$refs["wrapper"].clientHeight
     var contentHeight = this.$refs["content"].clientHeight
@@ -38,7 +43,7 @@ export default {
       window.setInterval(() => {
         if (this.top == wrapperHeight - contentHeight) {
           this.top = 0
-        } else if(this.top == 0) {
+        } else if (this.top == 0) {
           this.top = wrapperHeight - contentHeight
         }
       }, 5000)
@@ -56,19 +61,23 @@ ul {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;  
+  right: 0;
   transition: top 3s ease 0s;
 }
 
-li {
-  padding: 10px 5px;
-  font-size: 14px;
-}
 
 li:nth-child(odd) {
-  background-color: #372A44;
+  background-color: #345278;
 }
 
+a {
+  display: inline-block;
+  width: 100%;
+  height: 40px;  
+  line-height: 40px;
+  text-indent: 5px;
+  font-size: 14px;
+}
 .alarm {
   color: #EA7E9E;
 }

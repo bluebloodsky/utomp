@@ -20,7 +20,8 @@ export default {
         children: [{
           label: '光谷一路',
           children: [{
-            label: '1#廊段'
+            label: '1#廊段',
+            defaultSelected: true
           }, {
             label: '2#廊段'
           }]

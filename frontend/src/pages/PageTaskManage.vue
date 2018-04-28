@@ -72,7 +72,6 @@ header {
   right: 70%;
   bottom: 0;
   float: left;
-  background-color: #C6CFD8;
 }
 
 .left-box header input {
@@ -88,23 +87,20 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0;
   color: #707070;
+  margin: 0 10px 10px 10px;
+  background-color: #EAF1F7;
 }
 
 .left-box ul:first-child {
   color: #4D5265;
-  background-color: #C2CAD5;
+  background-color: #B0C6DB;
   pointer-events: none;
-}
-
-.left-box ul:nth-child(even) {
-  background-color: #CFD8DF
 }
 
 .left-box ul:not(:first-child):hover {
   cursor: pointer;
-  background-color: #D3D1C4;
+  background-color: #D0DEE9;
 }
 
 .right-box {
@@ -113,7 +109,7 @@ header {
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: #BABDCC;
+  background-color:  #CEDDE8;
 }
 
 .right-box>header {
@@ -125,12 +121,12 @@ header {
 }
 
 .right-box>header strong {
-  color: #8C6A60;
+  color: #90DFE4;
 }
 
 .right-box>section {
   margin: 15px 10px;
-  background-color: #C7CBD4;
+  background-color: #B0C6DB;
   padding: 15px;
   font-size: 18px;
 }

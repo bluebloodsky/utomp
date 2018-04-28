@@ -3,6 +3,7 @@
   </section>
 </template>
 <script>
+import { BASE_INFOS } from '@/json/desktop'
 export default {
   mounted() {
     var map = new BMap.Map(this.$refs['container'], {
@@ -14,6 +15,19 @@ export default {
     map.centerAndZoom(point, 13)
     map.setMapStyle({ style: "light" })
     map.enableScrollWheelZoom(true)
+
+    BASE_INFOS.map(baseInfo => {
+      var points = []
+      baseInfo.gis.map(point => {
+        points.push(new BMap.Point(point[0], point[1]))
+      })
+      var polyline = new BMap.Polyline(points, { strokeColor: "#10FD0F", strokeWeight: 8, strokeOpacity: 0.8 })
+      map.addOverlay(polyline);
+
+      polyline.addEventListener("click", e => {
+        console.log(e.point.lng, e.point.lat)
+      })
+    })
 
     function addMarker(point) { // 创建图标对象   
       var myIcon = new BMap.Icon(require("@/assets/fire.png"), new BMap.Size(23, 25), {
@@ -32,16 +46,10 @@ export default {
       map.addOverlay(marker);
     }
 
-    var bounds = map.getBounds();
-    var lngSpan = bounds.Ae - bounds.Ge;
-    var latSpan = bounds.ze - bounds.Fe;
-    for (var i = 0; i < 10; i++) {
-      var point = new BMap.Point(bounds.Ge + lngSpan * (Math.random() * 0.7 + 0.15),
-        bounds.Fe + latSpan * (Math.random() * 0.7 + 0.15));
-      addMarker(point);
+    {
+      var point = new BMap.Point(114.448465, 30.476026)
+      addMarker(point)
     }
-    // var point = new BMap.Point(114.49639, 30.474205);
-    // addMarker(point, 0);
 
   }
 }

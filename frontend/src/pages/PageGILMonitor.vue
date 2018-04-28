@@ -32,7 +32,8 @@ export default {
       nav: [{
         label: '东湖高新区',
         children: [{
-          label: '光谷一路'
+          label: '光谷一路',
+          defaultSelected: true
         }, {
           label: '光谷二路'
         }]
@@ -177,6 +178,8 @@ export default {
 .state-box:nth-child(3n) {
   margin-bottom: 100px;
 }
+
+
 /*
 .state-box:nth-child(3n) ul {
   background-color: #C55C60;
@@ -221,4 +224,5 @@ export default {
   transform: translateX(-50%);
   color: #3C3C3C;
 }
+
 </style>
