@@ -49,6 +49,7 @@ export default {
     // this.initCamera()
     this.initLight()
     this.loadModel()
+    this.createDataLabel()
     this.render()
     window.addEventListener("resize", () => {
       let canvas = this.$refs['canvas']
@@ -94,10 +95,12 @@ export default {
       this.renderer = new THREE.WebGLRenderer({
         alpha: true,
         antialias: true,
-        // preserveDrawingBuffer: true, //是否保存绘图缓冲  
+        preserveDrawingBuffer: true, //是否保存绘图缓冲  
       })
-      this.renderer.shadowMap.enabled = true
-      this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
+      // this.renderer.shadowMap.enabled = true
+      // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
       this.renderer.setSize(this.width, this.height)
 
       this.renderer.domElement.addEventListener("mousewheel", this.mousewheel, false)
@@ -118,16 +121,8 @@ export default {
       // var axes = new THREE.AxisHelper(200000)
       // this.scene.add(axes)
     },
-    initCamera() {
-      this.camera = new THREE.PerspectiveCamera(this.fov, this.width / this.height, 1, 100)
-      this.camera.position.set(2, 2, 402)
-
-      // let c = this.camera
-      // let helper = new THREE.CameraHelper(c);
-      // this.scene.add(helper);
-    },
     initLight() {
-      var ambiColor = "0x161616"
+      var ambiColor = "0xFFFFFF"
       let ambientLight = new THREE.AmbientLight(ambiColor, 1)
       this.scene.add(ambientLight)
     },
@@ -169,7 +164,7 @@ export default {
         }
 
         var near = 1,
-          far = 4 * data.boundingSphere.radius;
+          far = 2 * data.boundingSphere.radius;
         this.camera = new THREE.PerspectiveCamera(this.fov, this.width / this.height, near, far);
 
         // this.camera.position.x = data.boundingSphere.center.x +  data.boundingSphere.radius 
@@ -195,10 +190,42 @@ export default {
       }
       return matArray;
     },
+    createDataLabel() {
+      var diff = [this.endPoint[0] - this.startPoint[0], this.endPoint[1] - this.startPoint[1], this.endPoint[2] - this.startPoint[2]]
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 3; j++) {
+          var planeGeometry = new THREE.PlaneGeometry(500, 500)
+          var material = new THREE.MeshBasicMaterial({
+            map: this.getTexture(),
+            color:'#666'
+          })
+          var mesh = new THREE.Mesh(planeGeometry, material)
+          mesh.position.x = this.startPoint[0] + diff[0] * i / 10 + this.diffs[j]
+          mesh.position.y = this.startPoint[1] + diff[1] * i / 10
+          mesh.position.z = this.startPoint[2] + diff[2] * i / 10 - 7000
+          this.scene.add(mesh)
+        }
+      }
+    },
+    getTexture() {
+      let canvas = document.createElement('canvas')
+      // canvas.style.backgroundColor = "#000000"
+      canvas.width = 500
+      canvas.height = 500
+      var context = canvas.getContext('2d')
+      context.font='50px Microsoft YaHei';
+      context.fillStyle = "#FFFFFF";
+      context.fillText("测试数据:1111", 50, 50)
+      context.fill();
+      var texture = new THREE.Texture(canvas)
+      texture.needsUpdate = true
+      return texture
+    },
     render() {
-      var delta = this.clock.getDelta();
+      this.stats.update()
+      var delta = this.clock.getDelta()
       for (var i = 0; i < this.mixers.length; ++i)
-        this.mixers[i].update(delta);
+        this.mixers[i].update(delta)
       if (this.camera) {
         this.changeFov()
         // if (this.moveFlg) {
@@ -278,5 +305,6 @@ export default {
   bottom: 0;
   z-index: 9999;
 }
+
 
 </style>

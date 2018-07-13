@@ -3,7 +3,7 @@
     <div class="left-part">
       <section class="box">
         <header>GIS全览</header>
-        <Gis :baseInfos="baseInfos" :moveFlg="moveFlg" @locate-change = "onLocatechange"></Gis>
+        <Gis :baseInfos="baseInfos" :moveFlg="moveFlg" @locate-change="onLocatechange"></Gis>
       </section>
       <section class="box">
         <header>3D漫游展示</header>
@@ -14,7 +14,10 @@
         <SurVideo :imgSrcs="imgSrcs"></SurVideo>
       </section>
       <section class="box">
-        <header>事件统计</header>
+        <header>事件统计
+          <a class="warn">预警 <span>12</span></a>
+          <a class="alarm">告警 <span>5</span></a>
+        </header>
         <EventLog :baseInfos="baseInfos"></EventLog>
       </section>
     </div>
@@ -51,21 +54,20 @@ export default {
       baseInfos: [],
       imgSrcs: [],
       moveFlg: false,
-      locatePercent : 0,
+      locatePercent: 0,
     }
   },
   created() {
     this.baseInfos = BASE_INFOS
     for (let i = 1; i < 5; i++) {
-      this.imgSrcs.push('http://61.83.161.2:10000/mjpeg.cgi?channel=' + i + '&user=guest&password=guest&time=1524039431169'
-       )
+      this.imgSrcs.push('http://61.83.161.2:10000/mjpeg.cgi?channel=' + i + '&user=guest&password=guest&time=1524039431169')
     }
   },
-  methods:{
-    onLocatechange(val){
+  methods: {
+    onLocatechange(val) {
       this.locatePercent = val
     },
-    onMoveFlgChange(val){
+    onMoveFlgChange(val) {
       this.moveFlg = val
     }
   }
@@ -156,6 +158,44 @@ export default {
   left: 0;
   right: 0;
   overflow: hidden;
+}
+
+.alarm,
+.warn {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  float: right;
+  color: #070707;
+  margin-right: 20px;
+  border-radius: 2px;
+}
+
+.alarm {
+  background-color: #C55C60;
+}
+
+.warn {
+  background-color: #FEE179;
+}
+
+.alarm>span,
+.warn>span {
+  display: inline-block;
+  position: absolute;
+  background-color: #F56C6C;
+  border-radius: 5px;
+  top: -5px;
+  right: -15px;
+  left: auto;
+  height: 15px;
+  line-height: 15px;
+  width: 20px;
+  font-size: 6px;
+  color: #fff;
 }
 
 </style>

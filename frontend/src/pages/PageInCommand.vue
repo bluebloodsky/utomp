@@ -51,7 +51,9 @@
             <span>浸水</span>
           </a>
         </header>
-        <section></section>
+        <section id="view">
+          <img src="../assets/intunnel.png" @dblclick="fullScreen">
+        </section>
       </section>
       <section>
         <img src="http://61.83.161.2:10000/mjpeg.cgi?channel=1&user=guest&password=guest&time=1524039431169" @dblclick="fullScreen">
@@ -141,6 +143,7 @@ export default {
   mounted() {
     this.persons = commandInfo.persons
     this.plans = commandInfo.in_plans
+    // openGraph("view", "/test.gra")
   },
   methods: {
     fullScreen(e) {

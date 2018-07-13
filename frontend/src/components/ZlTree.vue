@@ -28,7 +28,7 @@ export default {
       this.$emit('node-click', item)
     },
     findDefaultNode(nodes) {
-      for(let node of nodes){
+      for (let node of nodes) {
         if (node.defaultSelected) {
           return node
         } else if (node.children) {
@@ -45,6 +45,5 @@ export default {
 
 </script>
 <style scoped>
-
 
 </style>

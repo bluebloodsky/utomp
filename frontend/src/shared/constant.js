@@ -122,7 +122,7 @@ export const NAV_MENUS = [{
   //   icon: 'icon-login-variant',
   //   url: 'unknown',
   // }],
-  sub_menus: [{   
+  sub_menus: [{
     name_cn: '管外应急指挥',
     icon: 'icon-fire',
     url: 'fire-handle',
@@ -130,8 +130,15 @@ export const NAV_MENUS = [{
     name_cn: '管内应急指挥',
     icon: 'icon-login-variant',
     url: 'in-command',
+  }, {
+    name_cn: '管外应急演练',
+    icon: 'icon-video',
+    url: 'unknown'
+  }, {
+    name_cn: '管内应急演练',
+    icon: 'icon-live',
+    url: 'unknown',
   }]
-
 }, {
   name_cn: '辅助决策',
   icon: 'icon-offline',
@@ -139,7 +146,7 @@ export const NAV_MENUS = [{
   sub_menus: [{
     name_cn: '监测数据分析',
     icon: 'icon-dynamic',
-    url: 'unknown',
+    url: 'data-analyse',
   }, {
     name_cn: '综合评价',
     icon: 'icon-select',

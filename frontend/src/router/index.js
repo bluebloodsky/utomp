@@ -13,6 +13,7 @@ import PageEventHandle from '../pages/PageEventHandle'
 import PageEventGis from '../pages/PageEventGis'
 import PageFireHandle from '../pages/PageFireHandle'
 import PageInCommand from '../pages/PageInCommand'
+import PageDataAnalyse from '../pages/PageDataAnalyse'
 import PageNotFind from '../pages/PageNotFind'
 Vue.use(Router)
 
@@ -64,6 +65,9 @@ const router = new Router({
     }, {
       path: 'in-command',
       component: PageInCommand
+    }, {
+      path: 'data-analyse',
+      component: PageDataAnalyse
     }]
   }]
 })
